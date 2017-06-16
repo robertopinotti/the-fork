@@ -1,0 +1,204 @@
+ristoranti=
+[
+
+	{
+	"p":0,
+	"nome":"Da Arturo",
+	"tipo":["cucina creativa","braceria","pizzeria","sushi","pesce"],
+	"luogo":"Via Comelico, Milano",
+	"prezzo":"economico",
+	"stelle":3,
+	"menu":
+	[
+		{
+		"nome":"menu pizza",
+		"antipasti":["patatine","olive fritte"],
+		"primi":[],
+		"secondi":["pizza a scelta"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua", "birra"],
+		"prezzo":17,
+		},
+		{
+		"nome":"menu milanese",
+		"antipasti":["polenta con cervo"],
+		"primi":["risotto alla milanese"],
+		"secondi":["cotoletta alla milanese"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua","vino","caffe"],
+		"prezzo":45,
+		}
+	],
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// lunedì
+		{"giorno":"lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// martedì
+		{"giorno":"martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// mercoledì
+		{"giorno":"mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// giovedì
+		{"giorno":"giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// venerdì
+		{"giorno":"venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// sabato
+		{"giorno":"sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// domenica
+		{"giorno":"domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	{
+	"p":0,
+	"nome":"Da Mario",
+	"tipo":["cucina creativa","braceria","pizzeria","sushi","pesce"],
+	"luogo":"Via Comelico, Milano",
+	"prezzo":"economico",
+	"stelle":3,
+	"menu":
+	[
+		{
+		"nome":"menu pizza",
+		"antipasti":["patatine","olive fritte"],
+		"primi":[],
+		"secondi":["pizza a scelta"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua", "birra"],
+		"prezzo":17,
+		},
+		{
+		"nome":"menu milanese",
+		"antipasti":["polenta con cervo"],
+		"primi":["risotto alla milanese"],
+		"secondi":["cotoletta alla milanese"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua","vino","caffe"],
+		"prezzo":45,
+		}
+	],
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// lunedì
+		{"giorno":"lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// martedì
+		{"giorno":"martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// mercoledì
+		{"giorno":"mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// giovedì
+		{"giorno":"giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// venerdì
+		{"giorno":"venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// sabato
+		{"giorno":"sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// domenica
+		{"giorno":"domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	} // ristoranti
+
+] // ristoranti

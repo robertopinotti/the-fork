@@ -1,0 +1,1 @@
+quando si torna sulla home page, il localstorage dei ristoranti non viene ricaricato

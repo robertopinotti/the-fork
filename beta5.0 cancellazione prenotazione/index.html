@@ -1,0 +1,145 @@
+  <!DOCTYPE html>
+  <html lang="it">
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Home | The Fork</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+<!-- //////////////// CSS -->
+
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-material-design.css" rel="stylesheet">
+
+  <script src="js/ristoranti.json"></script>
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <style>
+    body {
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+  </style>
+
+<script type="text/javascript">
+  
+  ///////////////////////// INIZIALIZZAZIONE UTENTI
+
+      function inizializzaStorageUtenti(){
+         if (typeof(localStorage.utenti) == "undefined") {
+            localStorage.utenti="[]";
+         }
+      }
+
+  ///////////////////////// PRENOTA RISTORANTE
+
+      function prenotaRistorante(i){
+
+        var u = JSON.parse(localStorage.ristoranti);
+        var nextpos = u.length;
+
+        // alert(nextpos);
+
+        // alert(u[i].p);
+
+        for (j=0; j<nextpos; j++)
+          u[j].p=0; // azzero tutte le prenotazioni
+
+        u[i].p=1;
+
+        // alert(u[i].p);
+
+        localStorage.ristoranti = JSON.stringify(u);
+
+        window.location.href = "prenotazione.html";
+      }
+
+  ///////////////////////// STAMPA RISTORANTI
+
+      function stampaRistoranti(){
+
+        if (typeof(localStorage.ristoranti) == "undefined") {
+          localStorage.setItem("ristoranti", JSON.stringify(ristoranti));  
+        }
+
+        
+        var result = JSON.parse(localStorage.getItem("ristoranti"));
+
+        var nextpos = result.length;
+
+        var s = new String("");
+
+        for (i=0;i<nextpos;i++) {
+
+          s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+          s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><em>"+result[i].nome+"</em></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em>"+result[i].luogo+"</em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+          s+="</div></div>";
+
+        }
+
+        document.getElementById("ristorante").innerHTML = s;
+
+      }
+
+</script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body onload="inizializzaStorageUtenti(); stampaRistoranti();">
+
+<!-- //////////////// NAVBAR -->
+
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="glyphicon glyphicon-user"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+
+        <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
+
+        </div><!--/.navbar-collapse -->       
+
+      </div>
+    </nav>
+
+<!-- //////////////// CONTENT -->
+
+<div class="container">
+<div class="row">
+
+  <div class="col-md-12">
+    <h2>Tutti i ristoranti</h2>
+    <div id="ristorante"></div>
+  </div>
+
+</div> <!-- /row -->
+</div> <!-- /container -->
+
+<!-- //////////////// JAVASCRIPT -->
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/plugins.js"></script>
+  
+</body>
+</html>

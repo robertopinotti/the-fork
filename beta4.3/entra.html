@@ -1,0 +1,262 @@
+  <!DOCTYPE html>
+  <html lang="it">
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Entra | The Fork</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+<!-- //////////////// CSS -->
+
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-material-design.css" rel="stylesheet">
+
+  <script src="js/ristoranti.json"></script>
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <style>
+    body {
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+  </style>
+
+   <script type="text/javascript">
+
+///////////////////////// INIZIALIZZAZIONE LOCAL STORAGE
+
+      function inizializzaStorageUtenti(){
+         if (typeof(localStorage.utenti) == "undefined") {
+            localStorage.utenti="[]";
+         }
+      }
+
+///////////////////////// CONTROLLA LOGIN
+
+      function checkLogin(){
+
+         var u = JSON.parse(localStorage.utenti);
+         var nextpos = u.length;
+
+         for (i=0;i<nextpos;i++)
+            if (u[i].l==1)
+               window.location.href = "account.html";
+
+      }
+
+///////////////////////// RESET LOCAL STORAGE, serve solo per fare le prove
+
+      function resetStorageUtenti(){
+         localStorage.utenti="[]";
+      }
+
+///////////////////////// STAMPA LOCAL STORAGE, serve solo per fare le prove
+
+      function stampaStorageTabella(){
+         var u = JSON.parse(localStorage.utenti);
+         var nextpos = u.length;
+
+         ////////////// inizio parte da stampare
+         var s = new String("<h3>localStorage:</h3>");
+         s +="<table border=1><tr><th>login</th><th>nome e cognome</th><th>password</th><th>ristorante</th><th>orario</th><th>posti</th>";
+
+         s+="</tr>";
+         for (i=0;i<nextpos;i++){
+            s += "<tr><td>"+u[i].l+"</td><td>"+u[i].nc+"</td><td>"+u[i].p+"</td><td>"+u[i].r+"</td><td>"+u[i].o+"</td><td>"+u[i].t+"</td><td>";
+            s+="</td></tr>";
+         }
+         s += "</table>";
+         ///////////// fine parte da stampare
+
+         document.getElementById("vistaStorage").innerHTML = s;
+
+         return true;
+      }
+
+///////////////////////// SE UGUALI
+
+      function uguali(u,o){
+         if (u.nc==o.nc)
+            return true;
+         return false;
+      }
+
+      function uguali_psw(u,o){
+         if ((u.nc==o.nc)&&(u.p==o.p))
+            return true;
+         return false;
+      }
+
+///////////////////////// REGISTRAZIONE UTENTE
+
+      function registrazioneUtente() {
+
+      var u = JSON.parse(localStorage.utenti);
+      var nextpos = u.length;
+
+      // dati inseriti
+      var o = {
+                  l:1, // quando si registra e' automaticamente loggato
+                  nc:document.registrazione.nomecognome.value,
+                  p:document.registrazione.password.value,
+                  prenotazione: []
+               };
+
+      // controllo se l'utente e' gia' inserito
+      for (i=0;i<nextpos;i++)
+         if(uguali(u[i],o)) {
+            alert("Utente gia' inserito!");
+            return false;
+      }
+
+      alert("Dati inseriti correttamente :)");
+
+      u[nextpos] = o; // metto i dati nell'ultima posizione
+      localStorage.utenti = JSON.stringify(u);
+
+      window.location.href = "account.html";
+
+      return true;
+
+      }
+
+///////////////////////// LOGIN UTENTE
+
+      function loginUtente() {
+
+      var u = JSON.parse(localStorage.utenti);
+      var nextpos = u.length;
+
+      // dati inseriti
+      var o = {
+                  nc:document.login.nomecognome.value,
+                  p:document.login.password.value
+               };
+
+      for (i=0;i<nextpos;i++) {
+
+         // se i dati inseriti combaciano con un utente salvato nel local storage
+         if(uguali_psw(u[i],o)) {
+
+            u[i].l = 1; // imposto il login a 1 cosi' so che e' dentro
+            localStorage.utenti = JSON.stringify(u); // trasformo e invio al local storage
+
+            alert("login avvenuto con successo");
+
+            window.location.href = "account.html";
+
+            return true;
+
+         }
+      } // for
+
+      alert("dati NON corretti");
+      return false;
+
+      }
+
+   </script>
+
+</head>
+
+<body onload="inizializzaStorageUtenti(); checkLogin();">
+
+<!-- //////////////// NAVBAR -->
+
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+         <span class="glyphicon glyphicon-user"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+
+        <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
+
+        </div><!--/.navbar-collapse -->       
+
+      </div>
+    </nav>
+
+<!-- //////////////// CONTENT -->
+
+<div class="container-fluid">
+<div class="col-md-6">
+
+   <h1>Registrazione utente</h1>
+
+   <form action="" method="post" name="registrazione" onSubmit="return registrazioneUtente();"
+   accept-charset="utf-8">
+
+   <strong>nome e cognome</strong>
+   <input type="text" name="nomecognome" size="30" minlength="4" maxlength="30" required>
+
+   <br><br>
+
+   <strong>password</strong> (da 6 a 12 caratteri)
+   <input type="password" name="password" size="12" minlength="6" maxlength="12" required="">
+
+   <br><br/>
+
+   <button type='submit' class='btn btn-raised btn-success' >Registrazione</button>
+
+   </form>
+
+</div>
+
+<div class="col-md-6">
+   <h1>Login Utente</h1>
+
+   <form action="" method="post" name="login" onSubmit="return loginUtente();"
+   accept-charset="utf-8">
+
+   <strong>nome e cognome</strong>
+   <input type="text" name="nomecognome" size="30" maxlength="30" required="">
+
+   <br><br>
+
+   <strong>password</strong> (da 6 a 12 caratteri)
+   <input type="password" name="password" size="12" minlength="6" maxlength="12" required="">
+
+   <br><br/>
+
+   <button type='submit' class='btn btn-raised btn-success' >Login</button>
+   
+   </form>
+
+   <div id="accountUtente"></div>
+
+</div>
+
+</div>
+
+<!-- 
+<div class="container-fluid">
+   <hr>
+
+   <input type="button" value="Stampa Storage Tabella" onclick="stampaStorageTabella();">
+   <input type="button" value="Reset Storage" onclick="resetStorageUtenti();">
+
+   <div id="vistaStorage"></div>
+</div> -->
+
+<!-- //////////////// JAVASCRIPT -->
+
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+   <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
+   <script src="js/vendor/bootstrap.min.js"></script>
+   <script src="js/vendor/plugins.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+- aggiunta: modifica password utente
+- aggiunta: modifica nomecognome utente
+- aggiunta: prenota ancora alla fine dell'elenco della prenotazioni
+- oscuramento password nel profilo utente

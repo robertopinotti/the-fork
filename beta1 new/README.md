@@ -1,0 +1,1 @@
+elimino il fatto che se uno ha una prenotazione allora da registrazione va direttamente alla schermata di prenotazione - motivazione: casino nell'azzerare poi la cosa

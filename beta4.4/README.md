@@ -1,0 +1,2 @@
+- aggiungo altri 8 ristoranti così da averne 10
+- sistemo la visualizzazione delle card

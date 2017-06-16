@@ -1,0 +1,270 @@
+  <!DOCTYPE html>
+  <html lang="it">
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Prenotazioni | The Fork</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+<!-- //////////////// CSS -->
+
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-material-design.css" rel="stylesheet">
+
+  <script src="js/ristoranti.json"></script>
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <style>
+    body {
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+  </style>
+
+   <script type="text/javascript">
+
+///////////////////////// CARICO RISTORANTI.JSON NEL LOCALSTORAGE
+
+// codice da cancellare poi perche' altrimenti ad ogni refresh viene caricato il file origianale
+
+// localStorage.setItem("ristoranti", JSON.stringify(ristoranti));
+// var result = JSON.parse(localStorage.getItem("ristoranti"));
+
+///////////////////////// CONTROLLA LOGIN
+
+      function checkLogin(){
+
+        // alert("checkLogin");
+
+         var u = JSON.parse(localStorage.utenti);
+         var nextpos = u.length;
+         var test_login = 0;
+
+         // cerco se negli utenti c'e' un utente gia' loggato
+         for (i=0;i<nextpos;i++) {
+            if (u[i].l==1) {
+               test_login = 1;
+               // alert("c'e' un utente loggato");
+               stampaDatiRistorante();
+            }
+         }
+
+        // se non ci sono utenti loggati, redirect nella pagina di login/registrazione
+        if(test_login==0) {
+          alert("per prenotare un ristorante devi essere registrato");
+          window.location.href = "entra.html";
+        }
+
+      }
+
+///////////////////////// STAMPA DATI RISTORANTE
+
+function stampaDatiRistorante(){
+
+   var u = JSON.parse(localStorage.ristoranti);
+   var nextpos = u.length;
+
+   ////////////// inizio parte da stampare
+   var s = new String("");
+
+        var i = 0; // array ristoranti (da 0 a nextpos)
+        var j = 0; // array menu (da 0 a nextpos)
+        var k = 1; // array prenotazioni (da 0 a 6)
+        var l = 0; // array orari-posti (da 0 a 1)
+
+        for(;i<nextpos;i++) {
+
+        // s+="prenotazione: "+u[i].p+"<br/>";
+        s+="<strong>nome</strong>: "+u[i].nome+"<br/>";
+        s+="<strong>tipo</strong>: "+u[i].tipo+"<br/>";
+        s+="<strong>luogo</strong>: "+u[i].luogo+"<br/>";
+        s+="<strong>prezzo</strong>: "+u[i].prezzo+"<br/>";
+        // s+="stelle: "+u[i].stelle+"<br/>";
+        s+="<h2>Menu</h2>";
+
+        for(;j<u[i].menu.length;j++) {
+          s+="<strong>nome menu</strong>: "+u[i].menu[j].nome+"<br/>";
+          s+="<strong>antipasti</strong>: "+u[i].menu[j].antipasti+"<br/>";
+          s+="<strong>primi</strong>: "+u[i].menu[j].primi+"<br/>";
+          s+="<strong>secondi</strong>: "+u[i].menu[j].secondi+"<br/>";
+          s+="<strong>allergia</strong>: "+u[i].menu[j].allergia+"<br/>";
+          s+="<strong>bevande</strong>: "+u[i].menu[j].bevande+"<br/>";
+          s+="<strong>prezzo</strong>: "+u[i].menu[j].prezzo+"<br/>";
+          s+="<br/>";
+
+        }
+
+        }
+
+        // s+="prenotazione ("+u[i].prenotazione[k].giorno+", ore "+u[i].prenotazione[k].tavolo[l].orario+"): "+u[i].prenotazione[k].tavolo[l].posti+"<br/>";
+
+   ///////////// fine parte da stampare
+
+   document.getElementById("vistaDatiRistorante").innerHTML = s;
+
+   return true;
+
+}
+
+///////////////////////// FORM PRENOTAZIONE
+
+function prenotaRistorante() {
+
+    var u = JSON.parse(localStorage.ristoranti);
+    var v = JSON.parse(localStorage.utenti);
+
+    var nextposu = u.length;
+    var nextposv = v.length;
+
+    // Variabili associate ai campi del modulo
+    var giorno_form = document.modulo.giorno.options[document.modulo.giorno.selectedIndex].value;
+    var orario_form = document.modulo.orario.value;
+    var posti_form = document.modulo.posti.options[document.modulo.posti.selectedIndex].value;
+
+    if (u[0].prenotazione[giorno_form].tavolo[orario_form].posti<posti_form) {
+      alert("non ci sono posti disponibili con questa combinazione");
+      return false;
+    }
+
+    else {
+
+      u[0].prenotazione[giorno_form].tavolo[orario_form].posti-=posti_form;
+
+      for (i=0;i<nextposu;i++) {
+        if (u[i].p==1) {
+          u[i].p=0;
+          // alert(u[i].p);
+        }
+      }
+
+      for (i=0;i<nextposv;i++){
+        if (v[i].l==1) {
+          v[i].r=u[0].nome;
+          v[i].g=giorno_form;
+          v[i].o=orario_form;
+          v[i].t=posti_form;
+          // alert(v[i].r+v[i].o+v[i].t);
+        }
+        // aggiungere prenotazioni a utente con l=1
+      }
+
+      // alert("Prenotazione per "+giorno_form+" alle ore "+orario_form+" per "+posti_form+" persone avvenuta con successo //// posti rimasti: "+u[0].prenotazione[giorno_form].tavolo[orario_form].posti);
+      
+      alert("prenotazione avvenuta con successo, puoi tornare al tuo account");
+
+      localStorage.ristoranti = JSON.stringify(u);
+      localStorage.utenti = JSON.stringify(v);
+
+      window.location.href = "account.html";
+
+      return true;
+
+    }
+
+}
+
+   </script>
+
+</head>
+
+<body onload="checkLogin(); ">
+
+<!-- //////////////// NAVBAR -->
+
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <span class="glyphicon glyphicon-user"></span>
+          </button>
+          <a class="navbar-brand" href="home.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+
+        <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
+
+        </div><!--/.navbar-collapse -->       
+
+      </div>
+    </nav>
+
+<!-- //////////////// CONTENT -->
+
+<div class="container">
+
+<h1>Prenota un tavolo</h1>
+
+<div class="row">
+<div class="col-md-6" id="rosso">
+
+<h2>Dati ristorante</h2>
+
+<div id="vistaDatiRistorante"></div>
+
+
+<h2>Scelta data</h2>
+
+<form method="post" name="modulo" onSubmit="return prenotaRistorante();">
+
+    <strong>Giorno</strong>
+      <select name="giorno">
+        <option value="0" selected="">Lunedì</option>
+        <option value="1">Martedì</option>
+        <option value="2">Mercoledì</option>
+        <option value="3">Giovedì</option>
+        <option value="4">Venerdì</option>
+        <option value="5">Sabato</option>
+        <option value="6">Domenica</option>
+      </select>
+
+    <br/><br/>
+
+      <strong>Orario</strong>
+      <input type="radio" name="orario" value="0" checked> 19-21
+      <input type="radio" name="orario" value="1"> 21+
+
+    <br/><br/>
+
+    <strong>Posti</strong>
+    <select name="posti">
+        <option value="1" >1</option>
+        <option value="2" selected="">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+
+  <br/><br/>
+  
+  <button type='submit' class='btn btn-raised btn-success' >Prenota</button>
+
+</form>
+
+</div></div>
+
+<div id="ritornaButton"></div>
+
+</div>
+
+<!-- //////////////// JAVASCRIPT -->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/plugins.js"></script>
+
+</body>
+
+</html>

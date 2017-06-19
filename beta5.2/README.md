@@ -1,2 +1,2 @@
-- index: titolo della card in strong
-- aggiunta link per google maps per gli indirizzi
+- account: cancellazione utente
+- index: aggiunto link a google maps all'indirizzo del ristorante

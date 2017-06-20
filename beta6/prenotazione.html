@@ -123,24 +123,11 @@ function prenotaRistorante() {
 
         // creo un oggetto per salvare le info
         var o = {
-          id:u[ristorante_prenotato].id,
           r:u[ristorante_prenotato].nome,
           g:giorno_form,
           o:orario_form,
           t:posti_form
         };
-
-        /*
-        lunghezza = v[utente_loggato].prenotazione.length;
-        
-        for (var i=0;i<lunghezza;i++) {
-          if ( v[i]=="") {
-            v[ utente_loggato ].prenotazione[ i ] = o;
-          } else {
-            v[ utente_loggato ].prenotazione[ lunghezza ] = o;
-          }
-        }
-        */
 
         nextpos = v[utente_loggato].prenotazione.length; // ultima posizione
         v[utente_loggato].prenotazione[nextpos] = o; // metto i dati nell'ultima posizione	          

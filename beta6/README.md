@@ -1,0 +1,2 @@
+- base
+- mancano: la ricerca in home

@@ -1,1 +1,1 @@
-- todo: implementare la cancellazione prenotazione
+- aggiunta: cancellazione prenotazione

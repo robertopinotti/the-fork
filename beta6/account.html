@@ -41,7 +41,10 @@ function stampaDatiUtente(){
   for (i=0;i<nextpos;i++){
     if (u[i].l==1) {
       s+="<strong>nome e cognome</strong>: "+u[i].nc+"<br/>";
-      s+="<strong>password</strong>: "+u[i].p+"<br/>";
+      s+="<button type='submit' class='btn btn-raised btn-success' onclick='modificaNomecognome();'>Modifica nome e cognome</button><br/>";
+      s+="<strong>password</strong>: ******<br/>";
+      // s+="<strong>password</strong>: "+u[i].p+"<br/>";
+      s+="<button type='submit' class='btn btn-raised btn-success' onclick='modificaPassword();'>Modifica password</button>";
     } // if
   } // for
   ///////////// fine parte da stampare
@@ -55,17 +58,15 @@ function stampaDatiUtente(){
 
 function stampaPrenotazioniUtente(){
 
-  var u = JSON.parse(localStorage.utenti); // vettore degli utenti
-  var nextpos = u.length; // lunghezza vettore degli utenti
+  var u = JSON.parse(localStorage.utenti);
+  var nextpos = u.length;
 
   ////////////// inizio parte da stampare
   var s = new String("");
   
-  // ciclo per trovare utente loggato
-  for (i=0;i<nextpos;i++){
+  for (i=0;i<nextpos;i++){ // ciclo per trovare utente loggato
 
-    // controllo se utente loggato
-    if (u[i].l==1 && /* u[i].prenotazione.length!=0 */ u[i].prenotazione!="") {
+    if (u[i].l==1 && u[i].prenotazione.length!=0) { // controllo se utente loggato
 
       for (j=0; j<u[i].prenotazione.length; j++) { // ciclo per riuscire a stampre più prenotazioni
 
@@ -104,17 +105,17 @@ function stampaPrenotazioniUtente(){
 
          s+="<br/>";
 
-         temp1=i, temp2=j;
-
-         s+="<button type='submit' class='btn btn-raised btn-success' onclick='cancellaPrenotazione(temp1,temp2);'>Cancella prenotazione</button>";
-
-         s+="<br/><br/>";
+         s+="<button type='submit' class='btn btn-raised btn-danger' onclick='cancellaPrenotazione(i, j);'>Cancella prenotazione</button><br/><br/>";
 
       } // for
 
+      s+="<button onclick='prenotaOra();' class='btn btn-raised btn-success'>prenota ancora</button>";
+
       } else {
 
-      s+="<a href='index.html'>prenota un posto!</a><br/><br/>";
+      s+="nessuna prenotazione presente<br/>";
+
+      s+="<button onclick='prenotaOra();' class='btn btn-raised btn-success'>prenota ora</button>";
 
     } // else
 
@@ -128,60 +129,35 @@ function stampaPrenotazioniUtente(){
 
 }
 
-///////////////////////// CANCELLA PRENOTAZIONE da sistemare
+///////////////////////// PRENOTA ORA
 
-function cancellaPrenotazione(i, j){
+function prenotaOra(){
+  window.location.href = "index.html";
+}
 
-  // i è l'utente loggato
-  // j è la prenotazione
+///////////////////////// MODIFICA PASSWORD
 
-  // alert("cancellaPrenotazione");
+function modificaPassword(){
 
-  // alert("i: " + i + " - j: "+j);
+  var u = JSON.parse(localStorage.utenti);
+  var nextpos = u.length;
+  
+  for (i=0;i<nextpos;i++)
+    if (u[i].l==1)
+      window.location.href = "modificapassword.html?" + i;
 
-  var u = JSON.parse(localStorage.utenti); // vettore degli utenti
-  var v = JSON.parse(localStorage.ristoranti); // vettore dei ristoranti
+}
 
-  var nextposu = u.length; // lunghezza vettore degli utenti
-  var nextposv = v.length; // lunghezza vettore dei ristoranti
+///////////////////////// MODIFICA NOME E COGNOME
 
-  var a = parseInt(u[i].prenotazione[j].t); // numero posti a sedere prenotati
+function modificaNomecognome(){
 
-  // cerco il ristorante del quale voglio cancellare la prenotazione
-  for(k=0; k<nextposv; k++){
-
-    if (v[k].id == u[i].prenotazione[j].id) {
-
-      g = u[i].prenotazione[j].g; // giorno prenotazione
-      o = u[i].prenotazione[j].o; // orario prenotazione
-
-      alert("numero posti a sedere PRIMA: " + v[k].prenotazione[g].tavolo[o].posti);
-
-      // aggiungo i posti a sedere cancellati
-      // v[k].prenotazione[g].tavolo[o].posti = v[k].prenotazione[g].tavolo[o].posti + a;
-
-      alert("numero posti a sedere DOPO: " + v[k].prenotazione[g].tavolo[o].posti);
-
-      // u[i].prenotazione[j] = ''; // creo "" nel localStorage
-
-      alert("localStorage.removeItem(u[i].prenotazione[j]);");
-      localStorage.removeItem(u[0].prenotazione[0]);
-
-      // localStorage.SetItem(u[i].prenotazione[j], ''); NON FUNZIONA 
-
-    }
-
-  }
-
-  // salvo ristoranti e utenti nel localStorage
-  localStorage.ristoranti = JSON.stringify(v);
-  localStorage.utenti = JSON.stringify(u);
-
-  alert("cancellazione prenotazione avvenuta con successo");
-    
-  location.reload();
-
-  return true;
+  var u = JSON.parse(localStorage.utenti);
+  var nextpos = u.length;
+  
+  for (i=0;i<nextpos;i++)
+    if (u[i].l==1)
+      window.location.href = "modificanomecognome.html?" + i;
 
 }
 
@@ -210,31 +186,74 @@ function esciAccount(){
 
 }
 
-///////////////////////// CANCELLA ACCOUNT da sistemare
+///////////////////////// CANCELLA PRENOTAZIONE da sistemare
 
-function cancellaAccount(){
-         var u = JSON.parse(localStorage.utenti);
-         var nextpos = u.length;
+function cancellaPrenotazione(i,j){ // i è l'utente, j è la prenotazione
 
-         for (i=0;i<nextpos;i++){
-            if (u[i].l==1) {
-               delete u[i]; // il valore nel vettore diventa "null" e non va bene
-               localStorage.utenti = JSON.stringify(u);
-               alert("cancellazione account avvenuta con successo");
-               return true;
-            }  
-         }
+  // 1. Parse the string in localStorage to JSON
 
-         alert("errore, riprova");
-         return false;
+  var vutenti = JSON.parse(localStorage.utenti);
+  var vristoranti = JSON.parse(localStorage.ristoranti);
+
+  // cerco il ristorante prenotato
+  for(var k=0; k<vristoranti.length; k++){
+    if (vristoranti[k].nome == vutenti[i-1].prenotazione[j-1].r) {
+      // rimetto i posti prenotati nei posti disponibili
+
+      var a = parseInt(vutenti[i-1].prenotazione[j-1].t);
+      vristoranti[k].prenotazione[vutenti[i-1].prenotazione[j-1].g].tavolo[vutenti[i-1].prenotazione[j-1].o].posti += a;
+
+    }
+  }
+
+  // 2. Remove the item you don't want (with slice())
+
+  vutenti[i-1].prenotazione.splice(j-1,1); // splice (position, howmany)
+
+  // 3. Make the JSON to string & Re-set it in the localStorage
+
+  localStorage.utenti = JSON.stringify(vutenti);
+  localStorage.ristoranti = JSON.stringify(vristoranti);
+
+  alert("prenotazione cancellata con successo!");
+  location.reload();
+
 }
 
+///////////////////////// CANCELLA ACCOUNT
 
-   </script>
+function cancellaAccount(){
+
+  // 1. Parse the string in localStorage to JSON
+
+  var items = JSON.parse(localStorage.utenti);
+
+  // cerco utente loggato
+  for(var i=0; i<items.length;i++)
+    if(items[i].l==1)
+      var nomeutente = new String(items[i].nc);
+
+  // 2. Remove the item you don't want (with slice() )
+
+  for (var i=0; i<items.length; i++)
+    if (items[i].nc == nomeutente)
+      items.splice(i, 1); // splice (index, howmany)
+
+  // 3. Make the JSON to string & Re-set it in the localStorage
+
+  localStorage.utenti = JSON.stringify(items);
+
+  alert("cancellazione account avvenuta con successo");
+  window.location.href = "entra.html";
+  return false;
+
+}
+
+</script>
 
 </head>
 
-<body onload="stampaDatiUtente(); stampaPrenotazioniUtente(); ">
+<body onload="stampaDatiUtente(); stampaPrenotazioniUtente(); checkPrenotazione();">
 
 <!-- //////////////// NAVBAR -->
 
@@ -272,23 +291,13 @@ function cancellaAccount(){
 
 <h2>Avanzate</h2>
 <button type='submit' class='btn btn-raised btn-success' onclick="esciAccount();">Esci dall'account</button>
-<!-- <input type="button" value="Cancella Account" onclick="cancellaAccount();"> -->
+<input type="submit" class="btn btn-raised btn-danger" value="Cancella Account" onclick="cancellaAccount();">
 
 </div>
 
-<!-- 
-<div class="container-fluid">
-   <hr>
-
-   <input type="button" value="Stampa Storage Tabella" onclick="stampaStorageTabella();">
-   <input type="button" value="Reset Storage" onclick="resetStorageUtenti();">
-
-   <div id="vistaStorage"></div>
-</div> -->
-
 <!-- //////////////// JAVASCRIPT -->
 
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
    <script src="js/vendor/bootstrap.min.js"></script>
    <script src="js/vendor/plugins.js"></script>

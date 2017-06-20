@@ -103,9 +103,9 @@ function stampaPrenotazioniUtente(){
 
          s+="<strong>posti</strong>: "+u[i].prenotazione[j].t;
 
-         s+="<br/><br/>";
+         s+="<br/>";
 
-         // s+="<button type='submit' class='btn btn-raised btn-success' onclick='cancellaPrenotazione(j);'>Cancella prenotazione</button>";
+         s+="<button type='submit' class='btn btn-raised btn-danger' onclick='cancellaPrenotazione(i, j);'>Cancella prenotazione</button><br/><br/>";
 
       } // for
 
@@ -161,48 +161,6 @@ function modificaNomecognome(){
 
 }
 
-///////////////////////// CANCELLA PRENOTAZIONE da sistemare
-
-function cancellaPrenotazione(k){
-
-  var u = JSON.parse(localStorage.utenti);
-  var v = JSON.parse(localStorage.ristoranti);
-
-  var nextposu = u.length;
-  var nextposv = v.length;
-
-  for (i=0;i<nextposu;i++){
-    if (u[i].l==1) {
-
-    var a = parseInt(u[i].t);
-    v[0].prenotazione[u[i].prenotazione[0].g].tavolo[u[i].prenotazione[0].o].posti += a;
-
-    // u[i].prenotazione[0]="";
-
-    // localStorage.removeItem(u[i].prenotazione[0].r);
-
-    /*
-    u[i].prenotazione[0].r="";
-    u[i].prenotazione[0].g="";
-    u[i].prenotazione[0].o="";
-    u[i].prenotazione[0].t=0; */
-
-    localStorage.ristoranti = JSON.stringify(v);
-    localStorage.utenti = JSON.stringify(u);
-
-    alert("cancellazione prenotazione avvenuta con successo");
-    location.reload();
-
-    return true;
-
-    } // if
-  } // for
-
-  alert("errore, riprova");
-  return false;
-
-}
-
 ///////////////////////// ESCI ACCOUNT
 
 function esciAccount(){
@@ -228,56 +186,74 @@ function esciAccount(){
 
 }
 
+///////////////////////// CANCELLA PRENOTAZIONE da sistemare
+
+function cancellaPrenotazione(i,j){ // i è l'utente, j è la prenotazione
+
+  // 1. Parse the string in localStorage to JSON
+
+  var vutenti = JSON.parse(localStorage.utenti);
+  var vristoranti = JSON.parse(localStorage.ristoranti);
+
+  // cerco il ristorante prenotato
+  for(var k=0; k<vristoranti.length; k++){
+    if (vristoranti[k].nome == vutenti[i-1].prenotazione[j-1].r) {
+      // rimetto i posti prenotati nei posti disponibili
+
+      alert("posti nel ristorante PRIMA: " + vristoranti[k].prenotazione[vutenti[i-1].prenotazione[j-1].g].tavolo[vutenti[i-1].prenotazione[j-1].o].posti);
+
+      var a = parseInt(vutenti[i-1].prenotazione[j-1].t);
+      vristoranti[k].prenotazione[vutenti[i-1].prenotazione[j-1].g].tavolo[vutenti[i-1].prenotazione[j-1].o].posti += a;
+
+      alert("posti nel ristorante DOPO: " + vristoranti[k].prenotazione[vutenti[i-1].prenotazione[j-1].g].tavolo[vutenti[i-1].prenotazione[j-1].o].posti);
+
+    }
+  }
+
+  // 2. Remove the item you don't want (with slice())
+
+  vutenti[i-1].prenotazione.splice(j-1,1); // splice (position, howmany)
+
+  // 3. Make the JSON to string & Re-set it in the localStorage
+
+  localStorage.utenti = JSON.stringify(vutenti);
+  localStorage.ristoranti = JSON.stringify(vristoranti);
+
+  alert("prenotazione cancellata con successo!");
+  location.reload();
+
+}
+
 ///////////////////////// CANCELLA ACCOUNT
 
-      function cancellaAccount(){
+function cancellaAccount(){
 
-      	// https://stackoverflow.com/questions/28362404/how-to-delete-a-specific-item-object-in-localstorage
+  // 1. Parse the string in localStorage to JSON
 
-        // 1. Parse the string in localStorage to JSON
+  var items = JSON.parse(localStorage.utenti);
 
-        var items = JSON.parse(localStorage.utenti);
-        // var items = JSON.parse(localStorage.getItem("utenti"));
+  // cerco utente loggato
+  for(var i=0; i<items.length;i++)
+    if(items[i].l==1)
+      var nomeutente = new String(items[i].nc);
 
-        // cerco utente loggato
-        for(var i=0; i<items.length;i++)
-        	if(items[i].l==1)
-        		var nomeutente = new String(items[i].nc);
+  // 2. Remove the item you don't want (with slice() )
 
-        // alert(nomeutente);
+  for (var i=0; i<items.length; i++)
+    if (items[i].nc == nomeutente)
+      items.splice(i, 1); // splice (index, howmany)
 
-        // 2. Remove the item you don't want (with slice() ) 
+  // 3. Make the JSON to string & Re-set it in the localStorage
 
-        for (var i=0; i<items.length; i++) {
-        	// alert("for");
-        	// alert(items.length);
+  localStorage.utenti = JSON.stringify(items);
 
-		    // var items = JSON.parse(items[i]);
+  alert("cancellazione account avvenuta con successo");
+  window.location.href = "entra.html";
+  return false;
 
-		    if (items[i].nc == nomeutente) {
-		    	// alert("if");
-		    // if (items.itemId == 0) {
-		        items.splice(i, 1);
-		    }
-		}
+}
 
-		// 3. Make the JSON to string
-
-		localStorage.utenti = JSON.stringify(items);
-		// item = JSON.stringify(items);
-
-		// 4. Re-set it in the localStorage
-		
-		// localStorage.setItem("utenti", items);
-
-		alert("cancellazione account avvenuta con successo");
-		window.location.href = "entra.html";
-		return false;
-
-      }
-
-
-   </script>
+</script>
 
 </head>
 

@@ -68,7 +68,6 @@
           localStorage.setItem("ristoranti", JSON.stringify(ristoranti));  
         }
 
-        
         var result = JSON.parse(localStorage.getItem("ristoranti"));
 
         var nextpos = result.length;
@@ -77,9 +76,11 @@
 
         for (i=0;i<nextpos;i++) {
 
-          s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+          s+="<div class='row'> <div class='col-md-9 col-xs-12'>";
 
-          s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><em>"+result[i].nome+"</em></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em>"+result[i].luogo+"</em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+          s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+            // https://www.google.it/maps?via celoria, milano <a href=""></a>
 
           s+="</div></div>";
 
@@ -109,14 +110,14 @@
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 			<span class="glyphicon glyphicon-user"></span>
           </button>
-          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork</a>
+          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork <small>beta6.0</small></a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
 
         <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
 
-        </div><!--/.navbar-collapse -->       
+        </div><!--/.navbar-collapse -->
 
       </div>
     </nav>

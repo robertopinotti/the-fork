@@ -1,2 +1,2 @@
-- account: cancellazione utente
-- index: aggiunto link a google maps all'indirizzo del ristorante
+- aggiunta: cancellazione utente
+- aggiunta: link a google maps all'indirizzo del ristorante

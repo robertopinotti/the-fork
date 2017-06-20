@@ -1,1 +1,2 @@
-funziona tutto
+- base
+- mancano: modifica dati utente, cancellazione utente, cancellazione prenotazione

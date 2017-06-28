@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Modifica | The Fork</title>
+  <title>Modifica Nomecognome | The Fork</title>
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="../../favicon.ico">
@@ -41,8 +41,6 @@
 
       utente = url.split("?");
 
-      // alert("utente: "+ utente[1]);
-
     }
 
     ///////////////////////// MODIFICA DATI
@@ -53,12 +51,25 @@
       var nextpos = u.length;
       posizione = utente[1];
 
-      if (u[posizione].p==document.modifica.password.value) {
-      	alert("La password non va bene!");
+      for(i=0;i<nextpos;i++){
+
+      }
+
+      for(i=0;i<nextpos;i++){
+        if (i != posizione) {
+          if(u[i].nc==document.modifica.nomecognome.value) {
+            alert("ERRORE Nome e cognome già presente nel sistema!");
+            return false;
+          }
+        }        
+      }
+
+      if (u[posizione].nc==document.modifica.nomecognome.value) {
+      	alert("ERRORE Stai cercando di inserire il tuo vecchio nome e cognome!");
       	return false;
       }
 
-      u[posizione].p = document.modifica.password.value;
+      u[posizione].nc = document.modifica.nomecognome.value;
 
       localStorage.utenti = JSON.stringify(u); // trasformo e invio al local storage
 
@@ -99,19 +110,21 @@
 <!-- //////////////// CONTENT -->
 
 <div class="container-fluid">
-<h1>Modifica password</h1>
+<h1>Modifica nome e cognome</h1>
 
   <form action="" method="post" name="modifica" onSubmit="return modificaDati();"
    accept-charset="utf-8">
 
-   <strong>NUOVA password</strong> (da 6 a 12 caratteri)
-   <input type="password" name="password" size="12" minlength="6" maxlength="12" required="">
+   <strong>NUOVO nome e cognome</strong>
+   <input type="text" name="nomecognome" size="30" maxlength="30" required="">
 
    <br><br/>
 
    <button type='submit' class='btn btn-raised btn-success' >Modifica</button>
    
    </form>
+
+   <button onclick="location.href='account.html';" class="btn btn-raised btn-danger">annulla</button>
 
 </div>
 

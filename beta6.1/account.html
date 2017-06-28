@@ -41,8 +41,10 @@ function stampaDatiUtente(){
   for (i=0;i<nextpos;i++){
     if (u[i].l==1) {
       s+="<strong>nome e cognome</strong>: "+u[i].nc+"<br/>";
-      s+="<strong>password</strong>: "+u[i].p+"<br/>";
-      s+="<button type='submit' class='btn btn-raised btn-success' onclick='modificaDati();'>Modifica password</button>";
+      s+="<button type='submit' class='btn btn-raised btn-success' onclick='modificaNomecognome();'>Modifica nome e cognome</button><br/>";
+      s+="<strong>password</strong>: ******<br/>";
+      // s+="<strong>password</strong>: "+u[i].p+"<br/>";
+      s+="<button type='submit' class='btn btn-raised btn-success' onclick='modificaPassword();'>Modifica password</button>";
     } // if
   } // for
   ///////////// fine parte da stampare
@@ -103,15 +105,17 @@ function stampaPrenotazioniUtente(){
 
          s+="<br/>";
 
-         // s+="<button type='submit' class='btn btn-raised btn-success' onclick='cancellaPrenotazione(j);'>Cancella prenotazione</button>";
-
-         s+="<br/><br/>";
+         s+="<button type='submit' class='btn btn-raised btn-danger' onclick='cancellaPrenotazione(i, j);'>Cancella prenotazione</button><br/><br/>";
 
       } // for
 
+      s+="<button onclick='prenotaOra();' class='btn btn-raised btn-success'>prenota ancora</button>";
+
       } else {
 
-      s="nessuna prenotazione presente, <a href='index.html'>prenota ora</a>";
+      s+="nessuna prenotazione presente<br/>";
+
+      s+="<button onclick='prenotaOra();' class='btn btn-raised btn-success'>prenota ora</button>";
 
     } // else
 
@@ -125,58 +129,35 @@ function stampaPrenotazioniUtente(){
 
 }
 
-///////////////////////// MODIFICA DATI
+///////////////////////// PRENOTA ORA
 
-function modificaDati(){
+function prenotaOra(){
+  window.location.href = "index.html";
+}
+
+///////////////////////// MODIFICA PASSWORD
+
+function modificaPassword(){
 
   var u = JSON.parse(localStorage.utenti);
   var nextpos = u.length;
   
   for (i=0;i<nextpos;i++)
     if (u[i].l==1)
-      window.location.href = "modifica.html?" + i;
+      window.location.href = "modificapassword.html?" + i;
 
 }
 
-///////////////////////// CANCELLA PRENOTAZIONE da sistemare
+///////////////////////// MODIFICA NOME E COGNOME
 
-function cancellaPrenotazione(k){
+function modificaNomecognome(){
 
   var u = JSON.parse(localStorage.utenti);
-  var v = JSON.parse(localStorage.ristoranti);
-
-  var nextposu = u.length;
-  var nextposv = v.length;
-
-  for (i=0;i<nextposu;i++){
-    if (u[i].l==1) {
-
-    var a = parseInt(u[i].t);
-    v[0].prenotazione[u[i].prenotazione[0].g].tavolo[u[i].prenotazione[0].o].posti += a;
-
-    // u[i].prenotazione[0]="";
-
-    // localStorage.removeItem(u[i].prenotazione[0].r);
-
-    /*
-    u[i].prenotazione[0].r="";
-    u[i].prenotazione[0].g="";
-    u[i].prenotazione[0].o="";
-    u[i].prenotazione[0].t=0; */
-
-    localStorage.ristoranti = JSON.stringify(v);
-    localStorage.utenti = JSON.stringify(u);
-
-    alert("cancellazione prenotazione avvenuta con successo");
-    location.reload();
-
-    return true;
-
-    } // if
-  } // for
-
-  alert("errore, riprova");
-  return false;
+  var nextpos = u.length;
+  
+  for (i=0;i<nextpos;i++)
+    if (u[i].l==1)
+      window.location.href = "modificanomecognome.html?" + i;
 
 }
 
@@ -205,27 +186,70 @@ function esciAccount(){
 
 }
 
-///////////////////////// CANCELLA ACCOUNT da sistemare
+///////////////////////// CANCELLA PRENOTAZIONE da sistemare
 
-function cancellaAccount(){
-         var u = JSON.parse(localStorage.utenti);
-         var nextpos = u.length;
+function cancellaPrenotazione(i,j){ // i è l'utente, j è la prenotazione
 
-         for (i=0;i<nextpos;i++){
-            if (u[i].l==1) {
-               delete u[i]; // il valore nel vettore diventa "null" e non va bene
-               localStorage.utenti = JSON.stringify(u);
-               alert("cancellazione account avvenuta con successo");
-               return true;
-            }  
-         }
+  // 1. Parse the string in localStorage to JSON
 
-         alert("errore, riprova");
-         return false;
+  var vutenti = JSON.parse(localStorage.utenti);
+  var vristoranti = JSON.parse(localStorage.ristoranti);
+
+  // cerco il ristorante prenotato
+  for(var k=0; k<vristoranti.length; k++){
+    if (vristoranti[k].nome == vutenti[i-1].prenotazione[j-1].r) {
+      // rimetto i posti prenotati nei posti disponibili
+
+      var a = parseInt(vutenti[i-1].prenotazione[j-1].t);
+      vristoranti[k].prenotazione[vutenti[i-1].prenotazione[j-1].g].tavolo[vutenti[i-1].prenotazione[j-1].o].posti += a;
+
+    }
+  }
+
+  // 2. Remove the item you don't want (with slice())
+
+  vutenti[i-1].prenotazione.splice(j-1,1); // splice (position, howmany)
+
+  // 3. Make the JSON to string & Re-set it in the localStorage
+
+  localStorage.utenti = JSON.stringify(vutenti);
+  localStorage.ristoranti = JSON.stringify(vristoranti);
+
+  alert("prenotazione cancellata con successo!");
+  location.reload();
+
 }
 
+///////////////////////// CANCELLA ACCOUNT
 
-   </script>
+function cancellaAccount(){
+
+  // 1. Parse the string in localStorage to JSON
+
+  var items = JSON.parse(localStorage.utenti);
+
+  // cerco utente loggato
+  for(var i=0; i<items.length;i++)
+    if(items[i].l==1)
+      var nomeutente = new String(items[i].nc);
+
+  // 2. Remove the item you don't want (with slice() )
+
+  for (var i=0; i<items.length; i++)
+    if (items[i].nc == nomeutente)
+      items.splice(i, 1); // splice (index, howmany)
+
+  // 3. Make the JSON to string & Re-set it in the localStorage
+
+  localStorage.utenti = JSON.stringify(items);
+
+  alert("cancellazione account avvenuta con successo");
+  window.location.href = "entra.html";
+  return false;
+
+}
+
+</script>
 
 </head>
 
@@ -267,7 +291,7 @@ function cancellaAccount(){
 
 <h2>Avanzate</h2>
 <button type='submit' class='btn btn-raised btn-success' onclick="esciAccount();">Esci dall'account</button>
-<!-- <input type="button" value="Cancella Account" onclick="cancellaAccount();"> -->
+<input type="submit" class="btn btn-raised btn-danger" value="Cancella Account" onclick="cancellaAccount();">
 
 </div>
 

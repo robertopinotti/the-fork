@@ -1,0 +1,310 @@
+  <!DOCTYPE html>
+  <html lang="it">
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Home | The Fork</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+<!-- //////////////// CSS -->
+
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-material-design.css" rel="stylesheet">
+
+  <script src="js/ristoranti.json"></script>
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <style>
+    body {
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+    #noverde {
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+
+<script type="text/javascript">
+  
+  ///////////////////////// INIZIALIZZAZIONE UTENTI
+
+      function inizializzaStorageUtenti(){
+         if (typeof(localStorage.utenti) == "undefined") {
+            localStorage.utenti="[]";
+         }
+      }
+
+  ///////////////////////// PRENOTA RISTORANTE
+
+      function prenotaRistorante(i){
+
+        var u = JSON.parse(localStorage.ristoranti);
+        var nextpos = u.length;
+
+        // alert(nextpos);
+
+        // alert(u[i].p);
+
+        for (j=0; j<nextpos; j++)
+          u[j].p=0; // azzero tutte le prenotazioni
+
+        u[i].p=1;
+
+        // alert(u[i].p);
+
+        localStorage.ristoranti = JSON.stringify(u);
+
+        window.location.href = "prenotazione.html";
+      }
+
+  ///////////////////////// STAMPA RISTORANTI
+
+      function stampaRistoranti(){
+
+        if (typeof(localStorage.ristoranti) == "undefined") {
+          localStorage.setItem("ristoranti", JSON.stringify(ristoranti));  
+        }
+
+        var result = JSON.parse(localStorage.getItem("ristoranti"));
+
+        var nextpos = result.length;
+
+        var s = new String("<h2>Tutti i ristoranti</h2>");
+
+        for (i=0;i<nextpos;i++) {
+
+          s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+          s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+            // https://www.google.it/maps?via celoria, milano <a href=""></a>
+
+          s+="</div></div>";
+
+        }
+
+        document.getElementById("ristorante").innerHTML = s;
+
+      }
+
+      ///////////////////////// RICERCA RISTORANTI
+
+      function ricercaRistoranti(){
+
+        // document.cercaristorante.tiporistorante[j].checked - controlla se e' checked
+        // document.cercaristorante.tiporistorante[j].value - controlla il valore
+        // document.cercaristorante.tiporistorante.length - controlla la lunghezza
+
+        // for che ritorna i tipi di ristorante selezionati
+        for(j=0;j<tiporislenght;j++){
+          if(document.cercaristorante.tiporistorante[j].checked){
+            tiporis = document.cercaristorante.tiporistorante[j].value;
+            alert("hai selezionato: "+tiporis);
+          }
+        }
+
+        if (true) {
+
+          var result = JSON.parse(localStorage.getItem("ristoranti"));
+          var nextpos = result.length;
+          var tiporislenght = document.cercaristorante.tiporistorante.length;
+
+          var nomeris, luogoris, tiporis;
+
+          var x,y,controllo=0;
+
+          var s = new String("<h2>Risultati della ricerca:</h2>");
+
+          for (i=0;i<nextpos;i++) {
+
+            if(document.cercaristorante.nomeristorante.value == "")
+              nomeris = 0;
+            else
+              nomeris = document.cercaristorante.nomeristorante.value;
+            if(document.cercaristorante.luogoristorante.value == "")
+              luogoris = 0;
+            else
+              luogoris = document.cercaristorante.luogoristorante.value;
+
+            if (nomeris!=0)
+              x = RegExp('\\b'+ nomeris +'\\b').test( result[i].nome.toLowerCase() );
+            if (luogoris!=0)
+              y = RegExp('\\b'+ luogoris +'\\b').test( result[i].luogo.toLowerCase() );
+
+            if ( x && luogoris==0 ) {
+
+              // alert("x && y==0");
+
+              s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+              s+="</div></div>";
+
+              controllo=1;
+
+            } // if
+
+            if ( nomeris==0 && y ) {
+
+              // alert("x==0 && y");
+
+              s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+              s+="</div></div>";
+
+              controllo=1;
+
+            } // if
+
+            if ( x && y ) {
+
+              // alert("x && y");
+
+              s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+              s+="</div></div>";
+
+              controllo=1;
+
+            } // if
+
+          } // for
+
+          if (controllo==0) {
+              s+="<p>Nessun risultato trovato :( </p>"
+            }
+
+          document.getElementById("ristorante").innerHTML = s;
+
+          return false;
+
+        } else {
+          return true;
+        }
+
+      }
+
+</script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body onload="inizializzaStorageUtenti(); stampaRistoranti();">
+
+<!-- //////////////// NAVBAR -->
+
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="glyphicon glyphicon-user"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork <small>beta6.3</small></a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+
+        <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
+
+        </div><!--/.navbar-collapse -->
+
+      </div>
+    </nav>
+
+<!-- //////////////// CONTENT -->
+
+<div class="container">
+<div class="row">
+
+  <div class="col-md-12">
+
+  <!-- ///////////// COLLAPSE PANEL -->
+
+      <div class="panel-group">
+      <div class="panel panel-default">
+
+        <a data-toggle="collapse" href="#collapse1">
+        <div class="panel-heading">
+          <h4 class="panel-title"><strong id="noverde">Ricerca</strong></h4>
+        </div>
+        </a>
+
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body">
+
+            <!-- //////////// SEARCH -->
+
+            <div class="container">
+            <div class="col-md-6">
+
+            <form action="" method="post" name="cercaristorante" onSubmit="return ricercaRistoranti();"
+             accept-charset="utf-8">
+
+              <div class="form-group">
+
+                <input type="text" placeholder="Nome ristorante" name="nomeristorante" value="" class="form-control">
+
+                <br/>
+
+                <input type="text" placeholder="Luogo ristorante" name="luogoristorante" value="" class="form-control">
+
+                <br/>
+
+                <input type="checkbox" name="tiporistorante" value="pizzeria"> Pizzeria
+                <input type="checkbox" name="tiporistorante" value="pasta"> Pasta
+                <input type="checkbox" name="tiporistorante" value="carne"> Carne
+                <input type="checkbox" name="tiporistorante" value="giapponese"> Giapponese
+
+              </div>
+
+              <button type='submit' class='btn btn-raised btn-success' >cerca</button>
+
+            </form>
+
+            <form method="post" name="annulla" onsubmit="return stampaRistoranti();" ><button type='submit' class='btn btn-raised btn-danger' >annulla</button></form>
+
+            </div> <!-- <div class="col-md-6"> -->
+            </div> <!-- <div class="container"> -->
+
+            <!-- //////////// SEARCH -->
+
+          </div> <!-- <div class="panel-body"> -->
+        </div> <!-- <div id="collapse1" class="panel-collapse collapse"> -->
+      </div> <!-- <div class="panel panel-default"> -->
+    </div> <!-- <div class="panel-group"> -->
+
+    <!-- ///////////// COLLAPSE PANEL -->
+
+  <div id="ristorante"></div>
+
+  </div> <!-- <div class="col-md-12"> -->
+
+</div> <!-- <div class="row"> -->
+</div> <!-- <div class="container"> -->
+
+<!-- //////////////// JAVASCRIPT -->
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/vendor/plugins.js"></script>
+  
+</body>
+</html>

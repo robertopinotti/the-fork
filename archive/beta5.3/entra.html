@@ -50,35 +50,6 @@
 
       }
 
-///////////////////////// RESET LOCAL STORAGE, serve solo per fare le prove
-
-      function resetStorageUtenti(){
-         localStorage.utenti="[]";
-      }
-
-///////////////////////// STAMPA LOCAL STORAGE, serve solo per fare le prove
-
-      function stampaStorageTabella(){
-         var u = JSON.parse(localStorage.utenti);
-         var nextpos = u.length;
-
-         ////////////// inizio parte da stampare
-         var s = new String("<h3>localStorage:</h3>");
-         s +="<table border=1><tr><th>login</th><th>nome e cognome</th><th>password</th><th>ristorante</th><th>orario</th><th>posti</th>";
-
-         s+="</tr>";
-         for (i=0;i<nextpos;i++){
-            s += "<tr><td>"+u[i].l+"</td><td>"+u[i].nc+"</td><td>"+u[i].p+"</td><td>"+u[i].r+"</td><td>"+u[i].o+"</td><td>"+u[i].t+"</td><td>";
-            s+="</td></tr>";
-         }
-         s += "</table>";
-         ///////////// fine parte da stampare
-
-         document.getElementById("vistaStorage").innerHTML = s;
-
-         return true;
-      }
-
 ///////////////////////// SE UGUALI
 
       function uguali(u,o){
@@ -105,16 +76,13 @@
                   l:1, // quando si registra e' automaticamente loggato
                   nc:document.registrazione.nomecognome.value,
                   p:document.registrazione.password.value,
-                  r:"",
-                  g:"",
-                  o:"",
-                  t:0
+                  prenotazione: []
                };
 
       // controllo se l'utente e' gia' inserito
       for (i=0;i<nextpos;i++)
          if(uguali(u[i],o)) {
-            alert("Utente gia' inserito!");
+            alert("ERRORE Utente già presente nel sistema!");
             return false;
       }
 
@@ -159,7 +127,7 @@
          }
       } // for
 
-      alert("dati NON corretti");
+      alert("ERRORE I dati non sono corretti, riprova!");
       return false;
 
       }
@@ -242,16 +210,6 @@
 </div>
 
 </div>
-
-<!-- 
-<div class="container-fluid">
-   <hr>
-
-   <input type="button" value="Stampa Storage Tabella" onclick="stampaStorageTabella();">
-   <input type="button" value="Reset Storage" onclick="resetStorageUtenti();">
-
-   <div id="vistaStorage"></div>
-</div> -->
 
 <!-- //////////////// JAVASCRIPT -->
 

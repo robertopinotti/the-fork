@@ -1,0 +1,861 @@
+ristoranti=
+[
+
+	// ristorante1
+	{
+	"p":0,
+	"nome":"Roberto Pizza",
+	"tipo":["Pizzeria"],
+	"luogo":"Via Pizzo Camino, Dalmine",
+	"prezzo":"€€",
+	"stelle":4.1,
+	"menu":
+	[
+		{
+		"nome":"Classico",
+		"antipasti":[""],
+		"primi":["Pizza semplice a scelta"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frumento"],
+		"bevande":["Chinotto in lattina", "Aranciata in lattina", "Limonata in lattina"],
+		"prezzo":6,
+		},
+		{
+		"nome":"Medio",
+		"antipasti":[""],
+		"primi":["Pizza farcita a scelta"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frumento"],
+		"bevande":["Chinotto da 0.5L", "Aranciata da 0.5L", "Limonata da 0.5L"],
+		"prezzo":8,
+		},
+		{
+		"nome":"Maxi",
+		"antipasti":[""],
+		"primi":["Pizza spaciale a scelta"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frumento"],
+		"bevande":["Chinotto da 0.5L", "Aranciata da 0.5L", "Limonata da 0.5L"],
+		"prezzo":10,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Studenti",
+			"valore":"20",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante2
+	{
+	"p":0,
+	"nome":"Bella Napoli",
+	"tipo":["Pizzeria"],
+	"luogo":"Via Campania, Napoli",
+	"prezzo":"€",
+	"stelle":4.6,
+	"menu":
+	[
+		{
+		"nome":"Menu Campania",
+		"antipasti":[""],
+		"primi":["Trancio di pizza a scelta"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frumento"],
+		"bevande":["Acqua da 0.75L", "Coca Cola in lattina"],
+		"prezzo":2,
+		},
+		{
+		"nome":"Menu Napoli",
+		"antipasti":[""],
+		"primi":["Pizza a scelta"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frumento"],
+		"bevande":["Acqua da 0.75L", "Coca Cola in lattina"],
+		"prezzo":5,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Studenti",
+			"valore":"20",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":20},
+				{ "orario":"21+", "posti":20}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante3
+	{
+	"p":0,
+	"nome":"Gattopardo",
+	"tipo":["Italiano","Carne","Pasta"],
+	"luogo":"Via Celoria, Milano",
+	"prezzo":"€€€",
+	"stelle":3.9,
+	"menu":
+	[
+		{
+		"nome":"Primo italiano",
+		"antipasti":["patatine","anelli di cipolla"],
+		"primi":["Pasta al sugo rosso", "Pasta al pesto", "Pasta alla carbonara"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frumento", "Frutta a guscio"],
+		"bevande":["Acqua da 0.75L", "Birra media", "Vino rosso da 0.5L"],
+		"prezzo":8,
+		},
+		{
+		"nome":"Tutto carne",
+		"antipasti":["patatine","anelli di cipolla"],
+		"primi":[""],
+		"secondi":["Cotoletta alla milanese", "Costata di manzo"],
+		"allergia":[""],
+		"bevande":["Acqua da 0.75L", "Birra media", "Vino rosso da 0.5L"],
+		"prezzo":12,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Lunedì e martedì a pranzo",
+			"valore":"10",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":30},
+				{ "orario":"21+", "posti":30}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante4
+	{
+	"p":0,
+	"nome":"Trattoria Sole",
+	"tipo":["Carne","Pasta","Insalata"],
+	"luogo":"Via De Gasperi, Firenze",
+	"prezzo":"€€",
+	"stelle":4.4,
+	"menu":
+	[
+		{
+		"nome":"Menu dello studente",
+		"antipasti":[],
+		"primi":["Pasta al pomodoro"],
+		"secondi":["Metà cotoletta alla milanese"],
+		"allergia":["Uovo","Latte", "Frumento"],
+		"bevande":["Acqua"],
+		"prezzo":6,
+		},
+		{
+		"nome":"Menu del lavoratore",
+		"antipasti":[],
+		"primi":["Risotto alla milanese"],
+		"secondi":["Cotoletta alla milanese"],
+		"allergia":["Uovo","Latte", "Frumento"],
+		"bevande":["Acqua","Vino","Caffe"],
+		"prezzo":10,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Mercoledì Pazzo",
+			"valore":"50",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":25},
+				{ "orario":"21+", "posti":25}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante5
+	{
+	"p":0,
+	"nome":"All'Orsa",
+	"tipo":["Pesce","Carne"],
+	"luogo":"Piazza Italia, Porto Cervo",
+	"prezzo":"€€€€",
+	"stelle":4.9,
+	"menu":
+	[
+		{
+		"nome":"menu pizza",
+		"antipasti":["patatine","olive fritte"],
+		"primi":[],
+		"secondi":["pizza a scelta"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua", "birra"],
+		"prezzo":17,
+		},
+		{
+		"nome":"menu milanese",
+		"antipasti":["polenta con cervo"],
+		"primi":["risotto alla milanese"],
+		"secondi":["cotoletta alla milanese"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua","vino","caffe"],
+		"prezzo":45,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Studenti",
+			"valore":"20",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante6
+	{
+	"p":0,
+	"nome":"Sumo Sushi",
+	"tipo":["Giapponese","Cinese"],
+	"luogo":"Via Degli Oleandri, Roma",
+	"prezzo":"€€",
+	"stelle":3.8,
+	"menu":
+	[
+		{
+		"nome":"menu pizza",
+		"antipasti":["patatine","olive fritte"],
+		"primi":[],
+		"secondi":["pizza a scelta"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua", "birra"],
+		"prezzo":17,
+		},
+		{
+		"nome":"menu milanese",
+		"antipasti":["polenta con cervo"],
+		"primi":["risotto alla milanese"],
+		"secondi":["cotoletta alla milanese"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua","vino","caffe"],
+		"prezzo":45,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Studenti",
+			"valore":"20",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante7
+	{
+	"p":0,
+	"nome":"Nuova Delhi",
+	"tipo":["Indiano"],
+	"luogo":"Via Falcone e Borsellino, Genova",
+	"prezzo":"€€",
+	"stelle":4.1,
+	"menu":
+	[
+		{
+		"nome":"menu pizza",
+		"antipasti":["patatine","olive fritte"],
+		"primi":[],
+		"secondi":["pizza a scelta"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua", "birra"],
+		"prezzo":17,
+		},
+		{
+		"nome":"menu milanese",
+		"antipasti":["polenta con cervo"],
+		"primi":["risotto alla milanese"],
+		"secondi":["cotoletta alla milanese"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua","vino","caffe"],
+		"prezzo":45,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Studenti",
+			"valore":"20",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}, // ristoranti
+
+	// ristorante8
+	{
+	"p":0,
+	"nome":"Brezeland",
+	"tipo":["Brezel"],
+	"luogo":"Viale Svizzera, Bolzano",
+	"prezzo":"€",
+	"stelle":4.7,
+	"menu":
+	[
+		{
+		"nome":"menu pizza",
+		"antipasti":["patatine","olive fritte"],
+		"primi":[],
+		"secondi":["pizza a scelta"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua", "birra"],
+		"prezzo":17,
+		},
+		{
+		"nome":"menu milanese",
+		"antipasti":["polenta con cervo"],
+		"primi":["risotto alla milanese"],
+		"secondi":["cotoletta alla milanese"],
+		"allergia":["Latte", "Frutta a guscio"],
+		"bevande":["acqua","vino","caffe"],
+		"prezzo":45,
+		}
+	],
+	"sconto":
+		{
+			"tipo":"Studenti",
+			"valore":"20",
+		},
+	"prenotazione":
+	[
+		// inizio elenco giorni settimana
+
+		// Lunedì
+		{"giorno":"Lunedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Martedì
+		{"giorno":"Martedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Mercoledì
+		{"giorno":"Mercoledì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Giovedì
+		{"giorno":"Giovedì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Venerdì
+		{"giorno":"Venerdì",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Sabato
+		{"giorno":"Sabato",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		},
+
+		// Domenica
+		{"giorno":"Domenica",
+			"tavolo":
+			[
+				{ "orario":"19-21", "posti":10},
+				{ "orario":"21+", "posti":10}
+			]
+		}
+
+		// fine elenco giorni settimana
+	] // prenotazione
+
+	}
+
+] // ristoranti

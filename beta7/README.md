@@ -1,0 +1,4 @@
+- PROBLEMI con la ricerca
+- prenotazione: stampo i posti disponibili per ogni giorno della settimana e gli sconti
+- aggiorno tutto il JSON per rendere veritieri i ristoranti [NON HO ANCORA FINITO]
+- NEW UI: da material-design a united

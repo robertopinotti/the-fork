@@ -15,7 +15,8 @@
 
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
   <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/bootstrap-material-design.css" rel="stylesheet">
+  <!-- <link href="css/bootstrap-material-design.css" rel="stylesheet"> -->
+  <link href="css/bootstrap-united.css" rel="stylesheet">
 
   <script src="js/ristoranti.json"></script>
   <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -76,13 +77,22 @@
 
         var nextpos = result.length;
 
+        var j;
+
         var s = new String("<h2>Tutti i ristoranti</h2>");
 
         for (i=0;i<nextpos;i++) {
 
           s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
 
-          s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+          s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'><strong>Cucina</strong>: "+result[i].tipo+"</div><div class='col-md-12'><strong>Luogo</strong>: "+result[i].luogo+"</div><div class='col-md-12'><strong>Prezzo</strong>: "+result[i].prezzo+"</div><div class='col-md-12'><strong>Stelle</strong>: ";
+
+          for(j=0;j<result[i].stelle-1;j++) // stelline piene
+            s+="<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+          for(;j<5;j++) // stelline vuote
+            s+="<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+
+          s+="</div></div></div><div class='panel-footer'><button type='submit' class='btn btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
 
             // https://www.google.it/maps?via celoria, milano <a href=""></a>
 
@@ -103,22 +113,22 @@
         // document.cercaristorante.tiporistorante.length - controlla la lunghezza
 
         // for che ritorna i tipi di ristorante selezionati
-        for(j=0;j<tiporislenght;j++){
+        for(j=0;j<document.cercaristorante.tiporistorante.length;j++){
           if(document.cercaristorante.tiporistorante[j].checked){
             tiporis = document.cercaristorante.tiporistorante[j].value;
-            alert("hai selezionato: "+tiporis);
           }
         }
+
+        alert("tiporis: "+tiporis);
 
         if (true) {
 
           var result = JSON.parse(localStorage.getItem("ristoranti"));
           var nextpos = result.length;
-          var tiporislenght = document.cercaristorante.tiporistorante.length;
 
           var nomeris, luogoris, tiporis;
 
-          var x,y,controllo=0;
+          var x,y,z,controllo=0;
 
           var s = new String("<h2>Risultati della ricerca:</h2>");
 
@@ -133,18 +143,25 @@
             else
               luogoris = document.cercaristorante.luogoristorante.value;
 
+            alert("tiporis: "+tiporis);
+
             if (nomeris!=0)
               x = RegExp('\\b'+ nomeris +'\\b').test( result[i].nome.toLowerCase() );
             if (luogoris!=0)
               y = RegExp('\\b'+ luogoris +'\\b').test( result[i].luogo.toLowerCase() );
+            if (tiporis!=0)
+              z = RegExp('\\b'+ tiporis +'\\b').test( result[i].tipo );
 
-            if ( x && luogoris==0 ) {
+            alert("z: "+z);
 
-              // alert("x && y==0");
+            // se un utente seleziona solo il nomeris
+            if ( x && luogoris==0 && tiporis==0 ) {
+
+              alert("x && luogoris==0 && tiporis==0");
 
               s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
 
-              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> "+result[i].luogo+"</em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div><div class='col-md-12'>Stelle: <em>"+result[i].stelle+"</em></div></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
 
               s+="</div></div>";
 
@@ -152,13 +169,14 @@
 
             } // if
 
-            if ( nomeris==0 && y ) {
+            // se un utente seleziona solo il luogoris
+            if ( nomeris==0 && y && tiporis==0 ) {
 
-              // alert("x==0 && y");
+              alert("nomeris==0 && y && tiporis==0");
 
               s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
 
-              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>"+result[i].nome+"</h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <strong>"+result[i].luogo+"</strong></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div><div class='col-md-12'>Stelle: <em>"+result[i].stelle+"</em></div></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
 
               s+="</div></div>";
 
@@ -166,13 +184,59 @@
 
             } // if
 
-            if ( x && y ) {
+            // se un utente seleziona nomeris e luogoris
+            if ( x && y && tiporis==0 ) {
 
-              // alert("x && y");
+              alert("x && y && tiporis==0");
 
               s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
 
-              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <em> <a target='_blank' href='https://www.google.it/maps?"+result[i].luogo+"'>"+result[i].luogo+"</a></em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <em>"+result[i].tipo+"</em></div><div class='col-md-12'>Luogo: <strong>"+result[i].luogo+"</strong></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div><div class='col-md-12'>Stelle: <em>"+result[i].stelle+"</em></div></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+              s+="</div></div>";
+
+              controllo=1;
+
+            } // if
+
+            // se un utente seleziona solo il tiporis
+            if ( nomeris==0 && luogoris==0 && z ) {
+
+              alert("nomeris==0 && luogoris==0 && z");
+
+              s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>"+result[i].nome+"</h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <strong>"+result[i].tipo+"</strong></div><div class='col-md-12'>Luogo: <em>"+result[i].luogo+"</em></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div><div class='col-md-12'>Stelle: <em>"+result[i].stelle+"</em></div></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+              s+="</div></div>";
+
+              controllo=1;
+
+            } // if
+
+            // se un utente seleziona nomeris, luogoris, tiporis
+            if ( x && y && z ) {
+
+              alert("x && y && z");
+
+              s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <strong>"+result[i].tipo+"</strong></div><div class='col-md-12'>Luogo: <strong> "+result[i].luogo+"</strong></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div><div class='col-md-12'>Stelle: <em>"+result[i].stelle+"</em></div></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
+
+              s+="</div></div>";
+
+              controllo=1;
+
+            } // if
+
+            // se un utente seleziona luogoris, tiporis
+            if ( nomeris==0 && y && z ) {
+
+              alert("nomeris==0 && y && z");
+
+              s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+
+              s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+result[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-12'>Cucina: <strong>"+result[i].tipo+"</strong></div><div class='col-md-12'>Luogo: <strong>"+result[i].luogo+"</strong></div><div class='col-md-12'>Prezzo: <em>"+result[i].prezzo+"</em></div><div class='col-md-12'>Stelle: <em>"+result[i].stelle+"</em></div></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-raised btn-success' onclick='prenotaRistorante("+i+")'>Prenota un tavolo</button></div></div>";
 
               s+="</div></div>";
 
@@ -209,31 +273,30 @@
 
 <!-- //////////////// NAVBAR -->
 
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			<span class="glyphicon glyphicon-user"></span>
-          </button>
-          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork <small>beta6.3</small></a>
-        </div>
-
-        <div id="navbar" class="navbar-collapse collapse">
-
-        <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
-
-        </div><!--/.navbar-collapse -->
-
-      </div>
-    </nav>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+  <div class="container-fluid">
+  <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"">
+        <span class="glyphicon glyphicon-user"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork <small>beta7.0</small></a>
+  </div>
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="entra.html"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+    </ul>
+  </div>
+  </div>
+  </div>
+  </nav>
 
 <!-- //////////////// CONTENT -->
 
 <div class="container">
 <div class="row">
 
-  <div class="col-md-12">
+  <div class="col-md-6">
 
   <!-- ///////////// COLLAPSE PANEL -->
 

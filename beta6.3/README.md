@@ -1,1 +1,0 @@
-- todo: ricerca per nome e luogo e tipo di ristorante

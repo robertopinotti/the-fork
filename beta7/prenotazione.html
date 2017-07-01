@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+  	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  	<title>Prenotazioni | The Fork</title>
+
+	<!-- //////////////// CSS -->
+
+  	<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  	<link href="css/bootstrap.css" rel="stylesheet">
+  	<link href="css/bootstrap-united.css" rel="stylesheet">
+
+  	<script src="js/ristoranti.json"></script>
+  	<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  	<style>
+		body {
+    		padding-top: 80px;
+    	}
+    	@media (min-width:992px){
+    		#fissato {
+    			position: fixed;
+    		}
+    	}
+  	</style>
+
+<script type="text/javascript">
+
+///////////////////////// STAMPA DATI RISTORANTE
+
+function stampaDatiRistorante(){
+
+	// caricamento dati dal localStorage
+	var vristoranti = JSON.parse(localStorage.ristoranti);
+	var vutenti = JSON.parse(localStorage.utenti);
+
+	// varibiali che mi serviranno durante la funzione
+	var i; // posizione del ristorante prenotato
+	var j; // variabile per ciclare il menu
+	var s = new String(""); // stringa da stampare
+	var f = new String(""); // stringa da stampare
+	var controllo = 0; // variabile per non far stampare il form di prenotazione
+	
+
+	// metto nella variabile i la posizione del ristorante premuto nella home
+	for (var a = 0; a < vristoranti.length; a++)
+		if (vristoranti[a].p == 1)
+			i = a;
+
+	// stampo i dati del ristorante
+	s+="<strong>Nome</strong>: "+vristoranti[i].nome+"<br/>";
+	s+="<strong>Tipo</strong>: "+vristoranti[i].tipo+"<br/>";
+	s+="<strong>Luogo</strong>: "+vristoranti[i].luogo+"<br/>";
+	s+="<strong>Prezzo</strong>: "+vristoranti[i].prezzo+"<br/>";
+	s+="<strong>Stelle</strong>: ";
+	for(j=0;j<vristoranti[i].stelle-1;j++) // stelline piene
+		s+="<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+	for(;j<5;j++) // stelline vuote
+		s+="<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+  	s+=" ("+vristoranti[i].stelle+")<br/><strong>Offerte</strong>: "+vristoranti[i].sconto.tipo+" sconto del "+vristoranti[i].sconto.valore+" su tutti i menu";
+  	s+="<hr>";
+
+  	// stampo il menu del ristorante
+	s+="<h2><span class='glyphicon glyphicon-cutlery'></span> Menu</h2>";
+	for(j=0;j<vristoranti[i].menu.length;j++) {
+		s+="<div class='panel panel-default'><div class='panel-heading'>";
+		s+="<strong>Nome menu</strong>: "+vristoranti[i].menu[j].nome+"<br/>";
+		s+="</div><div class='panel-body'>";
+		if(vristoranti[i].menu[j].antipasti!="")
+        	s+="<strong>Antipasti</strong>: "+vristoranti[i].menu[j].antipasti+"<br/>";
+        if(vristoranti[i].menu[j].primi!="")
+        	s+="<strong>Primi</strong>: "+vristoranti[i].menu[j].primi+"<br/>";
+        if(vristoranti[i].menu[j].secondi!="")
+        	s+="<strong>Secondi</strong>: "+vristoranti[i].menu[j].secondi+"<br/>";
+        if(vristoranti[i].menu[j].allergia!="")
+        	s+="<strong>Allergia</strong>: "+vristoranti[i].menu[j].allergia+"<br/>";
+        if(vristoranti[i].menu[j].bevande!="")
+        	s+="<strong>Bevande</strong>: "+vristoranti[i].menu[j].bevande+"<br/>";
+        s+="<strong>Prezzo</strong>: <span class='badge'>"+vristoranti[i].menu[j].prezzo+"</span> euro<br/>";
+        s+="</div></div>";
+	} // for
+	s+="<hr>";
+
+	// stampo i posti disponibili
+  	s+="<h2>Posti disponibili</h2>";
+  	for(j = 0;j<vristoranti[i].prenotazione.length;j++) {
+  		s+="<div class='panel panel-default'><div class='panel-heading'>";
+    	s+="<strong>Giorno</strong>: "+vristoranti[i].prenotazione[j].giorno;
+    	s+="</div><div class='panel-body'>";
+    	s+="<strong>Fascia oraria <span class='glyphicon glyphicon-time'></span> </strong><br/>";
+    	s+="<strong>Dalle 19 alle 21</strong>: <span class='badge'>"+vristoranti[i].prenotazione[j].tavolo[0].posti+" </span> posti<br/>";
+    	s+="<strong>Dopo le 21</strong>: <span class='badge'>"+vristoranti[i].prenotazione[j].tavolo[1].posti+" </span> posti<br/>";
+    	s+="</div></div>";
+  	} // for
+
+  	// stampo il form di prenotazione tavolo
+    for (j=0;j<vutenti.length;j++) {
+		if (vutenti[j].l==1) {
+			f+="<form method='post' name='modulo' onSubmit='return prenotaRistorante();'><strong>Giorno </strong><select name='giorno'><option value='0' selected=''>Lunedì</option><option value='1'>Martedì</option><option value='2'>Mercoledì</option><option value='3'>Giovedì</option><option value='4'>Venerdì</option><option value='5'>Sabato</option><option value='6'>Domenica</option></select><br/><br/><strong>Orario </strong><input type='radio' name='orario' value='0' checked> 19-21 <input type='radio' name='orario' value='1'> 21+<br/><br/><strong>Posti </strong><select name='posti'><option value='1' >1</option><option value='2' selected=''>2</option><option value='3'>3</option><option value='4'>4</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option></select><br/><br/><button type='submit' class='btn btn-success' >Prenota</button></form>";
+			controllo = 1;
+		}
+	}
+
+	if(controllo == 0)
+		f+="Per prenotare devi essere registrato, <a href='entra.html'>registrati ora</a>!<br/>";
+
+	// mando le stringhe create nei rispettivi div di
+	document.getElementById("vistaDatiRistorante").innerHTML = s;
+	document.getElementById("formPrenotazione").innerHTML = f;
+
+	return true;
+
+}
+
+///////////////////////// FORM PRENOTAZIONE
+
+function prenotaRistorante() {
+
+	// caricamento dati dal localStorage
+	var vristoranti = JSON.parse(localStorage.ristoranti);
+  	var vutenti = JSON.parse(localStorage.utenti);
+
+  	// cerco quale utente è loggato
+	for (var i=0;i<vutenti.length;i++)
+		if (vutenti[i].l==1) // se utente in posizione i è loggato
+      		utente_loggato = i;
+
+  	// cerco quale ristorante è prenotato
+  	for (var i=0;i<vristoranti.length;i++)
+    	if (vristoranti[i].p==1) // se utente in posizione i è loggato
+      		ristorante_prenotato = i;
+
+  	// se l'utente è loggato
+	else {
+
+		// Variabili associate ai campi del modulo
+	    var giorno_form = document.modulo.giorno.options[document.modulo.giorno.selectedIndex].value;
+	    var orario_form = document.modulo.orario.value;
+	    var posti_form = document.modulo.posti.options[document.modulo.posti.selectedIndex].value;
+
+      	// se NON ci sono posti disponibili
+      	if (vristoranti[ristorante_prenotato].prenotazione[giorno_form].tavolo[orario_form].posti<posti_form) {
+        	alert("Non ci sono posti disponibili con questa combinazione. Posti a disposizione: "+vristoranti[ristorante_prenotato].prenotazione[giorno_form].tavolo[orario_form].posti);
+        	return false;
+      	}
+
+      	// se ci sono posti disponibili
+      	else {
+
+        	// sottraggo i posti prenotati da quelli disponibili 
+        	vristoranti[ristorante_prenotato].prenotazione[giorno_form].tavolo[orario_form].posti-=posti_form;
+
+        	// creo un oggetto per salvare le info
+        	var o = {
+	          r:vristoranti[ristorante_prenotato].nome,
+	          g:giorno_form,
+	          o:orario_form,
+	          t:posti_form
+	        };
+
+	        nextpos = vutenti[utente_loggato].prenotazione.length; // ultima posizione
+	        vutenti[utente_loggato].prenotazione[nextpos] = o; // metto i dati nell'ultima posizione	          
+	        
+	        alert("Prenotazione avvenuta con successo, puoi tornare al tuo account");
+
+	        // salvo i dati nel localStorage
+	        localStorage.ristoranti = JSON.stringify(vristoranti);
+	        localStorage.utenti = JSON.stringify(vutenti);
+
+	        window.location.href = "account.html";
+	        return false; // così non c'è refresh
+
+        } // else
+
+    } // else
+
+} // function
+
+</script>
+
+</head>
+
+<body onload="stampaDatiRistorante()">
+
+<!-- //////////////// NAVBAR -->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+  	<div class="container-fluid">
+    <div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"">
+		<span class="glyphicon glyphicon-user"></span>
+		</button>
+		<a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork <small>beta6.3</small></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+		<ul class="nav navbar-nav navbar-right">
+        	<li><a href="entra.html"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+      	</ul>
+    </div>
+  	</div>
+  	</div>
+	</nav>
+
+<!-- //////////////// CONTENT -->
+
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+
+	<div class="panel panel-default">
+
+	<div class="panel-heading">
+		<h1>Dati ristorante</h1>
+	</div>
+
+	<div class="panel-body">
+		<div id="vistaDatiRistorante"></div>
+	</div>
+
+	</div> <!-- <div class="panel-default"> -->
+
+</div> <!-- <div class="col-md-6"> -->
+<div class="col-md-6">
+	
+	<div class="panel panel-default" id="fissato">
+	<div class="panel-heading">
+		<h2><span class="glyphicon glyphicon-calendar"></span> Prenota un tavolo</h2>
+	</div>
+	<div class="panel-body">
+		<div id="formPrenotazione"></div>
+	</div>
+	</div>
+
+</div> </div> <!-- <div class="col-md-6"> -->
+</div> <!-- <div class="row"> -->
+</div> <!-- <div class="container"> -->
+
+<!-- //////////////// JAVASCRIPT -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/vendor/plugins.js"></script>
+
+</body>
+
+</html>

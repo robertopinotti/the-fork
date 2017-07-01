@@ -1,1 +1,0 @@
-metto a commento le cose inutili per l'utente finale e quelle non ancora funzionanti

@@ -1,0 +1,2 @@
+- modifica della ricerca nella home
+- finisco di aggiornare tutto il JSON per rendere veritieri i ristoranti

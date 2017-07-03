@@ -1,0 +1,4 @@
+- provo ad inserire le immagini nei ristoranti in home
+- account.html: aggiornamento UI
+- sostituisco la varibiale p con id
+- prenotazione: passo al passaggio tramite url

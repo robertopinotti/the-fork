@@ -1,21 +1,18 @@
-  <!DOCTYPE html>
-  <html lang="it">
-  <head>
+<!DOCTYPE html>
+<html lang="it">
+<head>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Entra | The Fork</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
 
-<!-- //////////////// CSS -->
+  <!-- //////////////// CSS -->
 
   <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
   <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/bootstrap-material-design.css" rel="stylesheet">
+  <link href="css/bootstrap-united.css" rel="stylesheet">
 
   <script src="js/ristoranti.json"></script>
   <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -23,7 +20,6 @@
   <style>
     body {
       padding-top: 80px;
-      padding-bottom: 60px;
     }
   </style>
 
@@ -31,193 +27,267 @@
 
 ///////////////////////// INIZIALIZZAZIONE LOCAL STORAGE
 
-      function inizializzaStorageUtenti(){
-         if (typeof(localStorage.utenti) == "undefined") {
-            localStorage.utenti="[]";
-         }
+function inizializzaStorageUtenti(){
+  if (typeof(localStorage.utenti) == "undefined") {
+    localStorage.utenti="[]";
+  }
+}
+
+///////////////////////// STAMPA NAVBAR
+
+function stampaNavbar(){
+
+  var s = new String("");
+
+  if (typeof(localStorage.utenti) == "undefined") {
+
+    s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='entra.html'><small> <span class='glyphicon glyphicon-user'></span> Account</small></a>";
+
+  } else {
+
+    // caricamento dati dal localStorage
+    var vutenti = JSON.parse(localStorage.getItem("utenti"));
+
+    var controllo = 0;
+
+    for(i=0;i<vutenti.length;i++) {
+      if(vutenti[i].l==1) {
+        s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='entra.html'><small> <span class='glyphicon glyphicon-user'></span> "+vutenti[i].nc+"</small></a>";
+        controllo = 1;
       }
+    }
+
+    if(controllo==0)
+      s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='entra.html'><small> <span class='glyphicon glyphicon-user'></span> Account</small></a>";
+
+  }
+
+  document.getElementById("navbarstampa").innerHTML = s;
+
+}
 
 ///////////////////////// CONTROLLA LOGIN
 
-      function checkLogin(){
+function checkLogin(){
 
-         var u = JSON.parse(localStorage.utenti);
-         var nextpos = u.length;
+  // caricamento dati dal localStorage
+  var vutenti = JSON.parse(localStorage.utenti);
 
-         for (i=0;i<nextpos;i++)
-            if (u[i].l==1)
-               window.location.href = "account.html";
+  for (i=0;i<vutenti.length;i++)
+    if (vutenti[i].l==1)
+      window.location.href = "account.html";
 
-      }
+}
 
 ///////////////////////// SE UGUALI
 
-      function uguali(u,o){
-         if (u.nc==o.nc)
-            return true;
-         return false;
-      }
+function uguali(vutenti,datiform){
+  if (vutenti.nc==datiform.nc)
+    return true;
+  return false;
+}
 
-      function uguali_psw(u,o){
-         if ((u.nc==o.nc)&&(u.p==o.p))
-            return true;
-         return false;
-      }
+function uguali_psw(vutenti,datiform){
+  if ((vutenti.nc==datiform.nc)&&(vutenti.p==datiform.p))
+    return true;
+  return false;
+}
 
 ///////////////////////// REGISTRAZIONE UTENTE
 
-      function registrazioneUtente() {
+function registrazioneUtente() {
 
-      var u = JSON.parse(localStorage.utenti);
-      var nextpos = u.length;
+  // caricamento dati dal localStorage
+  var vutenti = JSON.parse(localStorage.utenti);
 
-      // dati inseriti
-      var o = {
-                  l:1, // quando si registra e' automaticamente loggato
-                  nc:document.registrazione.nomecognome.value,
-                  p:document.registrazione.password.value,
-                  prenotazione: []
-               };
+  // dati form
+  var datiform = {
+    l:1, // quando si registra e' automaticamente loggato
+    nc:document.registrazione.nomecognome.value,
+    p:document.registrazione.password.value,
+    prenotazione: []
+  };
 
-      // controllo se l'utente e' gia' inserito
-      for (i=0;i<nextpos;i++)
-         if(uguali(u[i],o)) {
-            alert("ERRORE Utente già presente nel sistema!");
-            return false;
-      }
+  // controllo se l'utente e' gia' inserito
+  for (i=0;i<vutenti.length;i++) {
+    if(uguali(vutenti[i],datiform)) {
+      alert("ERRORE Utente già presente nel sistema!");
+      return false;
+    }
+  }
 
-      alert("Dati inseriti correttamente :)");
+  alert("REGISTRAZIONE avvenuta con successo, ora verrai mandato al tuo account");
 
-      u[nextpos] = o; // metto i dati nell'ultima posizione
-      localStorage.utenti = JSON.stringify(u);
+  // metto i dati nell'ultima posizione
+  vutenti[vutenti.length] = datiform;
+
+  // salvo i dati nel localStorage
+  localStorage.utenti = JSON.stringify(vutenti);
+
+  window.location.href = "account.html";
+
+  return true;
+
+}
+
+///////////////////////// LOGIN UTENTE
+
+function loginUtente() {
+
+  // caricamento dati dal localStorage
+  var vutenti = JSON.parse(localStorage.utenti);
+
+  // dati inseriti
+  var datiform = {
+    nc:document.login.nomecognome.value,
+    p:document.login.password.value
+  };
+
+  for (i=0;i<vutenti.length;i++) {
+
+    // se i dati inseriti combaciano con un utente salvato nel local storage
+    if(uguali_psw(vutenti[i],datiform)) {
+
+      vutenti[i].l = 1; // imposto il login a 1 cosi' so che e' dentro
+      localStorage.utenti = JSON.stringify(vutenti); // trasformo e invio al local storage
+
+      alert("LOGIN avvenuto con successo, ora verrai mandato al tuo account");
 
       window.location.href = "account.html";
 
       return true;
 
-      }
+    } // if
+  } // for
 
-///////////////////////// LOGIN UTENTE
+  alert("ERRORE I dati non sono corretti, riprova!");
+  return false;
 
-      function loginUtente() {
+}
 
-      var u = JSON.parse(localStorage.utenti);
-      var nextpos = u.length;
-
-      // dati inseriti
-      var o = {
-                  nc:document.login.nomecognome.value,
-                  p:document.login.password.value
-               };
-
-      for (i=0;i<nextpos;i++) {
-
-         // se i dati inseriti combaciano con un utente salvato nel local storage
-         if(uguali_psw(u[i],o)) {
-
-            u[i].l = 1; // imposto il login a 1 cosi' so che e' dentro
-            localStorage.utenti = JSON.stringify(u); // trasformo e invio al local storage
-
-            alert("login avvenuto con successo");
-
-            window.location.href = "account.html";
-
-            return true;
-
-         }
-      } // for
-
-      alert("ERRORE I dati non sono corretti, riprova!");
-      return false;
-
-      }
-
-   </script>
+</script>
 
 </head>
+<body onload="inizializzaStorageUtenti(); checkLogin(); stampaNavbar()">
 
-<body onload="inizializzaStorageUtenti(); checkLogin();">
+  <!-- //////////////// NAVBAR -->
 
-<!-- //////////////// NAVBAR -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+  <div class="container-fluid">
 
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+  <div class="navbar-header">
+    <div id="navbarstampa"></div>
+  </div>
 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-         <span class="glyphicon glyphicon-user"></span>
-          </button>
-          <a class="navbar-brand" href="index.html"> <span class="glyphicon glyphicon-cutlery"></span> The Fork</a>
-        </div>
-
-        <div id="navbar" class="navbar-collapse collapse">
-
-        <button onclick="location.href='entra.html';" class="btn btn-raised btn-warning">account</button>
-
-        </div><!--/.navbar-collapse -->       
-
-      </div>
-    </nav>
+  </div> <!-- <div class="container-fluid"> -->
+  </div> <!-- <div class="container"> -->
+  </nav> <!-- <nav class="navbar navbar-inverse navbar-fixed-top"> -->
 
 <!-- //////////////// CONTENT -->
 
-<div class="container-fluid">
-<div class="col-md-6">
+<div class="container">
+<div class="row">
 
-   <h1>Registrazione utente</h1>
+<!-- //////////////// LOGIN UTENTE -->
 
-   <form action="" method="post" name="registrazione" onSubmit="return registrazioneUtente();"
-   accept-charset="utf-8">
+<div class="col-md-5">
 
-   <strong>nome e cognome</strong>
-   <input type="text" name="nomecognome" size="30" minlength="4" maxlength="30" required>
+  <div class="panel panel-default">
 
-   <br><br>
+    <div class="panel-heading">
+      <h2>Login Utente</h2>
+    </div>
 
-   <strong>password</strong> (da 6 a 12 caratteri)
-   <input type="password" name="password" size="12" minlength="6" maxlength="12" required="">
+    <div class="panel-body">
 
-   <br><br/>
+      <form action="" method="post" name="login" onSubmit="return loginUtente();">
 
-   <button type='submit' class='btn btn-raised btn-success' >Registrazione</button>
+      <div class="form-group">
+        <label>Nome e cognome*</label>
+        <input class="form-control" type="text" name="nomecognome" placeholder="Il nome e cognome del tuo account" required="">
+      </div>
 
-   </form>
+      <div class="form-group">
+        <label>Password*</label>
+        <input class="form-control" type="password" name="password" placeholder="La password del tuo account" required="">
+      </div>
 
-</div>
+      <div class="form-group">
+        <div class="row">
+        <div class="col-md-8">
+          <button type="submit" class="btn btn-block btn-success">LOGIN <span class="glyphicon glyphicon-log-in"></span></button><br/>
+        </div>
+        <div class="col-md-4">
+          <button type="reset" class="btn btn-block btn-default">Pulisci form <span class="glyphicon glyphicon-refresh"></span></button>
+        </div>
+        </div>
+      </div>
 
-<div class="col-md-6">
-   <h1>Login Utente</h1>
+      </form>
 
-   <form action="" method="post" name="login" onSubmit="return loginUtente();"
-   accept-charset="utf-8">
+      <small>*obbligatorio</small>
 
-   <strong>nome e cognome</strong>
-   <input type="text" name="nomecognome" size="30" maxlength="30" required="">
+    </div> <!-- <div class="panel-body"> -->
 
-   <br><br>
+  </div> <!-- <div class="panel panel-default"> -->
 
-   <strong>password</strong> (da 6 a 12 caratteri)
-   <input type="password" name="password" size="12" minlength="6" maxlength="12" required="">
+</div> <!-- <div class="col-md-6"> -->
 
-   <br><br/>
+<!-- //////////////// REGISTRAZIONE UTENTE -->
 
-   <button type='submit' class='btn btn-raised btn-success' >Login</button>
-   
-   </form>
+<div class="col-md-5">
 
-   <div id="accountUtente"></div>
+  <div class="panel panel-default">
 
-</div>
+    <div class="panel-heading">
+      <h2>Registrazione Utente</h2>
+    </div>
 
-</div>
+    <div class="panel-body">
+
+      <form action="" method="post" name="registrazione" onSubmit="return registrazioneUtente();">
+
+      <div class="form-group">
+        <label>Nome e cognome*</label>
+        <input class="form-control" type="text" name="nomecognome" minlength="2" maxlength="30" placeholder="Il tuo nome e cognome" required>
+      </div>
+
+      <div class="form-group">
+        <label>Password*</label>
+        <input class="form-control" type="password" name="password" minlength="8" maxlength="24" placeholder="Una password forte e sicura" required="">
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+        <div class="col-md-8">
+          <button type="submit" class="btn btn-block btn-success">REGISTRATI <span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-plus"></span></button><br/>
+        </div>
+        <div class="col-md-4">
+          <button type="reset" class="btn btn-block btn-default">Pulisci form <span class="glyphicon glyphicon-refresh"></span></button>
+        </div>
+        </div>
+      </div>
+
+      </form>
+
+      <small>*obbligatorio</small>
+
+    </div> <!-- <div class="panel-body"> -->
+
+  </div> <!-- <div class="panel panel-default"> -->
+
+</div> <!-- <div class="col-md-6"> -->
+
+</div> <!-- <div class="row"> -->
+</div> <!-- <div class="container"> -->
 
 <!-- //////////////// JAVASCRIPT -->
 
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
-   <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
-   <script src="js/vendor/bootstrap.min.js"></script>
-   <script src="js/vendor/plugins.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.js"><\/script>')</script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/vendor/plugins.js"></script>
 
 </body>
-
 </html>

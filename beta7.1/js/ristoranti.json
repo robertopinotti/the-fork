@@ -233,7 +233,7 @@ ristoranti=
 	"menu":
 	[
 		{
-		"nome":"Primo italiano",
+		"nome":"Primo Italiano",
 		"antipasti":["patatine","anelli di cipolla"],
 		"primi":["Pasta al sugo rosso", "Pasta al pesto", "Pasta alla carbonara"],
 		"secondi":[""],
@@ -242,7 +242,7 @@ ristoranti=
 		"prezzo":8,
 		},
 		{
-		"nome":"Tutto carne",
+		"nome":"Tutto Carne",
 		"antipasti":["patatine","anelli di cipolla"],
 		"primi":[""],
 		"secondi":["Cotoletta alla milanese", "Costata di manzo"],
@@ -339,7 +339,7 @@ ristoranti=
 	"menu":
 	[
 		{
-		"nome":"Menu dello studente",
+		"nome":"Studente",
 		"antipasti":[],
 		"primi":["Pasta al pomodoro"],
 		"secondi":["Metà cotoletta alla milanese"],
@@ -348,7 +348,7 @@ ristoranti=
 		"prezzo":6,
 		},
 		{
-		"nome":"Menu del lavoratore",
+		"nome":"Lavoratore",
 		"antipasti":[],
 		"primi":["Risotto alla milanese"],
 		"secondi":["Cotoletta alla milanese"],
@@ -445,28 +445,28 @@ ristoranti=
 	"menu":
 	[
 		{
-		"nome":"menu pizza",
-		"antipasti":["patatine","olive fritte"],
-		"primi":[],
-		"secondi":["pizza a scelta"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua", "birra"],
-		"prezzo":17,
+		"nome":"Degustazione Pesce",
+		"antipasti":["Insalata di polpo e seppia con sedano e carote", "Canestrino di pecorino con insalata di gamberi avocado e noci"],
+		"primi":[" Riso venere al salmone e fiori di zucca su vellutata di mascarpone"],
+		"secondi":["Filetto di Rombo al forno in crosta di zucchine julienne e dadolata di patate"],
+		"allergia":["Pesce", "Crostacei"],
+		"bevande":["Acqua", "Spumante Brut", "Caffè"],
+		"prezzo":60,
 		},
 		{
-		"nome":"menu milanese",
-		"antipasti":["polenta con cervo"],
-		"primi":["risotto alla milanese"],
-		"secondi":["cotoletta alla milanese"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua","vino","caffe"],
-		"prezzo":45,
+		"nome":"Degustazione Carne",
+		"antipasti":["Millefoglie di manzo e verdure "],
+		"primi":["Busiate con lamelle di vitello e funghi di bosco "],
+		"secondi":["Involtini di maiale in salsa al marsala "],
+		"allergia":[""],
+		"bevande":["Acqua","Calice di vino"],
+		"prezzo":50,
 		}
 	],
 	"sconto":
 		{
-			"tipo":"Studenti",
-			"valore":"20",
+			"tipo":"Under 30",
+			"valore":"15",
 		},
 	"prenotazione":
 	[
@@ -551,28 +551,28 @@ ristoranti=
 	"menu":
 	[
 		{
-		"nome":"menu pizza",
-		"antipasti":["patatine","olive fritte"],
-		"primi":[],
-		"secondi":["pizza a scelta"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua", "birra"],
-		"prezzo":17,
+		"nome":"All You Can Eat - Pranzo",
+		"antipasti":[""],
+		"primi":["Spaghetti e riso", "Nigiri sushi", "Zenzai e Sushi misto"],
+		"secondi":["Maki", "Uramaki", "Agemono e Nimono"],
+		"allergia":["Latte", "Uovo", "Soia", "Pesce", "Crostacei"],
+		"bevande":["Acqua", "Aranciata", "Chinotto"],
+		"prezzo":9.99,
 		},
 		{
-		"nome":"menu milanese",
-		"antipasti":["polenta con cervo"],
-		"primi":["risotto alla milanese"],
-		"secondi":["cotoletta alla milanese"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua","vino","caffe"],
-		"prezzo":45,
+		"nome":"All You Can Eat - Cena",
+		"antipasti":["Zuppa", "Verdure"],
+		"primi":["Spaghetti e riso", "Nigiri sushi", "Zenzai e Sushi misto", ""],
+		"secondi":["Maki", "Uramaki", "Agemono e Nimono", "Pollo e Anatra", "Manzo e Maiale", "Gamberi e Calamari"],
+		"allergia":["Latte", "Uovo", "Soia", "Pesce", "Crostacei"],
+		"bevande":["Acqua", "Aranciata", "Chinotto"],
+		"prezzo":19.99,
 		}
 	],
 	"sconto":
 		{
-			"tipo":"Studenti",
-			"valore":"20",
+			"tipo":"Take Away",
+			"valore":"50",
 		},
 	"prenotazione":
 	[
@@ -582,8 +582,8 @@ ristoranti=
 		{"giorno":"Lunedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		},
 
@@ -591,8 +591,8 @@ ristoranti=
 		{"giorno":"Martedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		},
 
@@ -600,8 +600,8 @@ ristoranti=
 		{"giorno":"Mercoledì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		},
 
@@ -609,8 +609,8 @@ ristoranti=
 		{"giorno":"Giovedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		},
 
@@ -618,8 +618,8 @@ ristoranti=
 		{"giorno":"Venerdì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		},
 
@@ -627,8 +627,8 @@ ristoranti=
 		{"giorno":"Sabato",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		},
 
@@ -636,8 +636,8 @@ ristoranti=
 		{"giorno":"Domenica",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":50},
+				{ "orario":"21+", "posti":50}
 			]
 		}
 
@@ -649,7 +649,7 @@ ristoranti=
 	// ristorante7
 	{
 	"p":0,
-	"nome":"Nuova Delhi",
+	"nome":"New Delhi",
 	"tipo":["Indiano"],
 	"luogo":"Via Falcone e Borsellino, Genova",
 	"prezzo":"€€",
@@ -657,28 +657,37 @@ ristoranti=
 	"menu":
 	[
 		{
-		"nome":"menu pizza",
-		"antipasti":["patatine","olive fritte"],
-		"primi":[],
-		"secondi":["pizza a scelta"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua", "birra"],
-		"prezzo":17,
+		"nome":"New Entry",
+		"antipasti":["CHICKEN PAKORA", "MIX PAKORA", "ONION BHAJEE"],
+		"primi":["CHICKEN BIRYANI", "CHICKEN BIRYANI", "PRAWN BIRYANI"],
+		"secondi":["BUTTER CHICKEN", "CHICKEN KORMA", "CHICKEN VINDALOO"],
+		"allergia":["Latte", "Uova", "Frumetno", "Frutta a guscio"],
+		"bevande":["Acqua"],
+		"prezzo":12,
 		},
 		{
-		"nome":"menu milanese",
-		"antipasti":["polenta con cervo"],
-		"primi":["risotto alla milanese"],
-		"secondi":["cotoletta alla milanese"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua","vino","caffe"],
-		"prezzo":45,
+		"nome":"Hot",
+		"antipasti":["CHICKEN PAKORA", "MIX PAKORA", "ONION BHAJEE"],
+		"primi":["ALOO PALAK", "BAIGAN BHARTA", "DUM ALOO"],
+		"secondi":["CHICKEN CURRY", "CHICKEN CURRY", "CHICKEN CURRY"],
+		"allergia":["Latte", "Uova", "Frumetno", "Frutta a guscio"],
+		"bevande":["Tanta acqua"],
+		"prezzo":18,
+		},
+		{
+		"nome":"All You Can Eat",
+		"antipasti":["CHICKEN PAKORA", "MIX PAKORA", "ONION BHAJEE"],
+		"primi":["ALOO PALAK", "BAIGAN BHARTA", "DUM ALOO", "CHICKEN BIRYANI", "CHICKEN BIRYANI", "PRAWN BIRYANI"],
+		"secondi":["CHICKEN CURRY", "CHICKEN CURRY", "CHICKEN CURRY", "CHICKEN CURRY", "CHICKEN CURRY", "CHICKEN CURRY"],
+		"allergia":["Latte", "Uova", "Frumetno", "Frutta a guscio"],
+		"bevande":["Tanta acqua"],
+		"prezzo":24.99,
 		}
 	],
 	"sconto":
 		{
-			"tipo":"Studenti",
-			"valore":"20",
+			"tipo":"Feriali a pranzo",
+			"valore":"10",
 		},
 	"prenotazione":
 	[
@@ -688,8 +697,8 @@ ristoranti=
 		{"giorno":"Lunedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		},
 
@@ -697,8 +706,8 @@ ristoranti=
 		{"giorno":"Martedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		},
 
@@ -706,8 +715,8 @@ ristoranti=
 		{"giorno":"Mercoledì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		},
 
@@ -715,8 +724,8 @@ ristoranti=
 		{"giorno":"Giovedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		},
 
@@ -724,8 +733,8 @@ ristoranti=
 		{"giorno":"Venerdì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		},
 
@@ -733,8 +742,8 @@ ristoranti=
 		{"giorno":"Sabato",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		},
 
@@ -742,8 +751,8 @@ ristoranti=
 		{"giorno":"Domenica",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":40},
+				{ "orario":"21+", "posti":40}
 			]
 		}
 
@@ -763,27 +772,36 @@ ristoranti=
 	"menu":
 	[
 		{
-		"nome":"menu pizza",
-		"antipasti":["patatine","olive fritte"],
-		"primi":[],
-		"secondi":["pizza a scelta"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua", "birra"],
-		"prezzo":17,
+		"nome":"Tradizionale",
+		"antipasti":[""],
+		"primi":["Brezel con Sale", "Brezel con Papavero", "Brezel con Sesamo Bianco", "Brezel con Semi du Zucca"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frutta a guscio", "Frumento"],
+		"bevande":["Acqua", "Aranciata", "Chinotto", "Birra"],
+		"prezzo":2,
 		},
 		{
-		"nome":"menu milanese",
-		"antipasti":["polenta con cervo"],
-		"primi":["risotto alla milanese"],
-		"secondi":["cotoletta alla milanese"],
-		"allergia":["Latte", "Frutta a guscio"],
-		"bevande":["acqua","vino","caffe"],
-		"prezzo":45,
+		"nome":"Hamburger",
+		"antipasti":[""],
+		"primi":[""],
+		"secondi":["Hamburger di Prezel con carne di manzo, pomodoro, insalata, salsa a scelta, bacon"],
+		"allergia":["Latte", "Uovo", "Frutta a guscio", "Frumento"],
+		"bevande":["Acqua", "Aranciata", "Chinotto", "Birra"],
+		"prezzo":6,
+		},
+		{
+		"nome":"Merenda",
+		"antipasti":[""],
+		"primi":["Breakfast Bretzel", "Honey Bretzel", "Dark Bretzel", "White Bretzel", "Nutella Bretzel"],
+		"secondi":[""],
+		"allergia":["Latte", "Uovo", "Frutta a guscio", "Frumento"],
+		"bevande":["Acqua", "Aranciata", "Chinotto", "Birra"],
+		"prezzo":3,
 		}
 	],
 	"sconto":
 		{
-			"tipo":"Studenti",
+			"tipo":"Take Away e studenti universitari",
 			"valore":"20",
 		},
 	"prenotazione":
@@ -794,8 +812,8 @@ ristoranti=
 		{"giorno":"Lunedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		},
 
@@ -803,8 +821,8 @@ ristoranti=
 		{"giorno":"Martedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		},
 
@@ -812,8 +830,8 @@ ristoranti=
 		{"giorno":"Mercoledì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		},
 
@@ -821,8 +839,8 @@ ristoranti=
 		{"giorno":"Giovedì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		},
 
@@ -830,8 +848,8 @@ ristoranti=
 		{"giorno":"Venerdì",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		},
 
@@ -839,8 +857,8 @@ ristoranti=
 		{"giorno":"Sabato",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		},
 
@@ -848,8 +866,8 @@ ristoranti=
 		{"giorno":"Domenica",
 			"tavolo":
 			[
-				{ "orario":"19-21", "posti":10},
-				{ "orario":"21+", "posti":10}
+				{ "orario":"19-21", "posti":8},
+				{ "orario":"21+", "posti":8}
 			]
 		}
 

@@ -1,2 +1,0 @@
-- aggiunta di utente_loggato in "prenotazione": ora una prenotazione finisce dell'utente giusto
-- 

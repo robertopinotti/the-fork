@@ -1,4 +1,0 @@
-- modifica della ricerca nella home
-- finisco di aggiornare tutto il JSON per rendere veritieri i ristoranti
-- modifiche alla navbar tra cui la stampa dinamica così da far vedere il nome utente
-- entra.html aggiornata la UI

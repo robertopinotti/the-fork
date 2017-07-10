@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Home | The Fork</title>
+
+  <!-- //////////////// CSS -->
+
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/bootstrap-united.css" rel="stylesheet">
+
+  <script src="../js/ristoranti.json"></script>
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <style>
+    body {
+      padding-top: 80px;
+    }
+    @media (min-width:992px){
+      #fissato {
+        position: fixed;
+      }
+      #visibile{
+        display: none;
+      }
+    }
+    #sel {
+      background-color: yellow;
+    }
+    #rosso {
+      color: red;
+    }
+    img {
+      width: 100%;
+      height: 75%;
+    }
+  </style>
+
+<!-- //////////////// FUNZIONI JS -->
+
+<script type="text/javascript">
+  
+///////////////////////// INIZIALIZZAZIONE UTENTI
+
+function inizializzaStorageUtenti(){
+  if (typeof(localStorage.utenti) == "undefined")
+    localStorage.utenti="[]";
+}
+
+///////////////////////// PRENOTA RISTORANTE
+
+function prenotaRistorante(i){
+
+  window.location.href = "booking.html?"+i;
+
+}
+
+///////////////////////// STAMPA NAVBAR
+
+function stampaNavbar(){
+
+  var s = new String("");
+
+  if (typeof(localStorage.utenti) == "undefined") {
+
+    s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='login.html'><small> <span class='glyphicon glyphicon-user'></span> Account</small></a><a class='navbar-brand' href='../index.html'>🇮🇹</a>";
+
+  } else {
+
+    // caricamento dati dal localStorage
+    var vutenti = JSON.parse(localStorage.getItem("utenti"));
+
+    var controllo = 0;
+
+    for(i=0;i<vutenti.length;i++) {
+      if(vutenti[i].l==1) {
+        s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='login.html'><small> <span class='glyphicon glyphicon-user'></span> "+vutenti[i].nc+"</small></a><a class='navbar-brand' href='../index.html'>🇮🇹</a>";
+        controllo = 1;
+      }
+    }
+
+    if(controllo==0)
+      s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='login.html'><small> <span class='glyphicon glyphicon-user'></span> Account</small></a><a class='navbar-brand' href='../index.html'>🇮🇹</a>";
+
+  }
+
+  document.getElementById("navbarstampa").innerHTML = s;
+
+}
+
+///////////////////////// STAMPA RISTORANTI
+
+function stampaRistoranti(){
+
+  if (typeof(localStorage.ristoranti) == "undefined") {
+    localStorage.setItem("ristoranti", JSON.stringify(ristoranti));  
+  }
+
+  // caricamento dati dal localStorage
+  var vristoranti = JSON.parse(localStorage.getItem("ristoranti"));
+
+  // variabili che mi serviranno durante la funzione
+  var j; // variabile per stampare le stilline
+  var s = new String("<h2>Restaurants</h2>");
+
+  for (i=0;i<vristoranti.length;i++) {
+
+    s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+    s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+vristoranti[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-6'><strong>Cuisine</strong>: "+vristoranti[i].type+"<br/><strong>Place</strong>: "+vristoranti[i].luogo+"<br/><strong>Price</strong>: "+vristoranti[i].prezzo+"<br/><strong>Stars</strong>: ";
+
+    for(j=0;j<vristoranti[i].stelle-1;j++) // stelline piene
+      s+="<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+    for(;j<5;j++) // stelline vuote
+      s+="<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+
+    s+="<br/><span id='rosso'>"+vristoranti[i].sconto.type+": <span class='badge'>"+vristoranti[i].sconto.valore+"</span>% of discount on all menus!</span>";
+    s+="</div><div class='col-md-6'><img class='img-rounded' src='../"+vristoranti[i].foto+"'></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-success' onclick='prenotaRistorante("+i+")'><span class='glyphicon glyphicon-calendar'></span> Book a table</button></div></div>";
+
+    s+="</div></div>";
+
+  } // for
+
+  document.getElementById("ristorante").innerHTML = s;
+
+}
+
+///////////////////////// RICERCA RISTORANTI
+
+function ricercaRistoranti(){
+
+  if (true) {
+
+    // prendo i valori di tiporis
+    var tiporis = new String("");
+    for(j=0;j<document.cercaristorante.tiporistorante.length;j++)
+      if(document.cercaristorante.tiporistorante[j].checked)
+        tiporis += document.cercaristorante.tiporistorante[j].value;
+
+    // prendo i valori di prezzoris
+    var prezzoris = new String("");
+    for(j=0;j<document.cercaristorante.prezzoristorante.length;j++)
+      if(document.cercaristorante.prezzoristorante[j].checked)
+        prezzoris += document.cercaristorante.prezzoristorante[j].value;
+
+    // caricamento dati dal localStorage
+    var vristoranti = JSON.parse(localStorage.getItem("ristoranti"));
+
+    // variabili che mi serviranno durante la funzione
+    var nomeris, luogoris, tiporis, prezzoris;
+    var x,y,z,k,controllo=0;
+    var s = new String("<h2>Result:</h2>");
+
+    for (i=0;i<vristoranti.length;i++) {
+      
+      x = true; // nomeris
+      y = true; // luogoris
+      z = true; // tiporis
+      k = true; // prezzoris
+
+      // controllo se l'utente ha inserito qualcosa nel campo nome
+      if(document.cercaristorante.nomeristorante.value == "")
+        nomeris = true;
+      else
+        nomeris = document.cercaristorante.nomeristorante.value;
+      if(document.cercaristorante.luogoristorante.value == "")
+        luogoris = true;
+      else
+        luogoris = document.cercaristorante.luogoristorante.value;
+      if(tiporis == "")
+        tiporis = true;
+      if(prezzoris == "")
+        prezzoris = true;
+
+      // se l'utente ha inserito qualcosa, controllo che sia uguale al campo in posizione i
+      if (nomeris!=true)
+        x = RegExp(nomeris, "ig").test(vristoranti[i].nome);
+      if (luogoris!=true)
+        y = RegExp(luogoris, "ig").test(vristoranti[i].luogo);
+      if (tiporis!=true)
+        z = RegExp(tiporis, "ig").test(vristoranti[i].tipo);
+      if (prezzoris!=true)
+        k = (prezzoris==vristoranti[i].prezzo);
+
+      // se tutti i valori sono veri, allora stampo il ristorante
+      if ( nomeris && x && luogoris && y && tiporis && z && prezzoris && k) {
+
+        s+="<div class='row'> <div class='col-md-12 col-xs-12'>";
+	    s+="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><strong>"+vristoranti[i].nome+"</strong></h3></div><div class='panel-body'><div class='row'><div class='col-md-6'><strong>Cuisine</strong>: "+vristoranti[i].type+"<br/><strong>Place</strong>: "+vristoranti[i].luogo+"<br/><strong>Price</strong>: "+vristoranti[i].prezzo+"<br/><strong>Stars</strong>: ";
+
+	    for(j=0;j<vristoranti[i].stelle-1;j++) // stelline piene
+	      s+="<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+	    for(;j<5;j++) // stelline vuote
+	      s+="<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+
+	    s+="<br/><span id='rosso'>"+vristoranti[i].sconto.type+": <span class='badge'>"+vristoranti[i].sconto.valore+"</span>% of discount on all menus!</span>";
+	    s+="</div><div class='col-md-6'><img class='img-rounded' src='../"+vristoranti[i].foto+"'></div></div></div><div class='panel-footer'><button type='submit' class='btn btn-success' onclick='prenotaRistorante("+i+")'><span class='glyphicon glyphicon-calendar'></span> Book a table</button></div></div>";
+
+	    s+="</div></div>";
+
+        controllo=1;
+
+      } // if
+
+    } // for
+
+    if (controllo==0) {
+      s+="<div class='alert alert-danger'>No result :(</div>";
+    }
+
+    document.getElementById("ristorante").innerHTML = s;
+
+    window.location.href = "#visibile";
+
+    return false;
+
+  } else {
+    return true;
+  }
+
+} // function
+
+</script>
+
+</head>
+<body onload="inizializzaStorageUtenti(); stampaRistoranti(); stampaNavbar()">
+
+  <!-- //////////////// NAVBAR -->
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+  <div class="container-fluid">
+
+  <div class="navbar-header">
+      <div id="navbarstampa"></div>
+  </div>
+
+  </div>
+  </div>
+  </nav>
+
+  <!-- //////////////// CONTENT -->
+
+  <div class="container">
+  <div class="row">
+
+  <div class="col-md-6">
+
+  <div id="visibile">
+    <form action="#fissato">
+      <button type="submit" class="btn  btn-block" class="form-control"><strong><span class="glyphicon glyphicon-search"></span> Find a restaurant</strong></button>
+    </form>
+  </div>
+
+  <div id="ristorante"></div>
+
+  </div> <!-- <div class="col-md-6"> -->
+
+  <div class="col-md-6">
+
+  <div class="panel panel-default" id="fissato">
+
+  <div class="panel-heading">
+    <h2><span class="glyphicon glyphicon-search"></span> Find a restaurant</h2>
+  </div>
+
+  <div class="panel-body">
+
+    <form action="" method="post" name="cercaristorante" onSubmit="return ricercaRistoranti();" accept-charset="utf-8">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" placeholder="Name of the restaurant" name="nomeristorante" value="" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Place</label>
+        <input type="text" placeholder="Place of the restaurant" name="luogoristorante" value="" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Cuisine</label>
+        <div class="checkbox">
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Pizzeria">Pizza</label>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Italiano">Italian</label>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Carne">Meat</label><br/>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Pasta">Pasta</label>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Insalata">Salad</label>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Pesce">Fish</label><br/>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Giapponese">Japanese</label>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Cinese">Chinese</label>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Indiano">Indian</label><br/>
+          <label class="checkbox-inline"><input type="checkbox" name="tiporistorante" value="Brezel">Brezel</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Price</label>
+        <div class="radio">
+          <label class="radio-inline"><input type="radio" name="prezzoristorante" value="€">€</label>
+          <label class="radio-inline"><input type="radio" name="prezzoristorante" value="€€">€€</label>
+          <label class="radio-inline"><input type="radio" name="prezzoristorante" value="€€€">€€€</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success btn-block" ><span class="glyphicon glyphicon-search"></span> FIND</button>
+    </form>
+
+    <br/>
+    <form method="post" name="annulla" onsubmit="return stampaRistoranti();" ><button type='submit' class='btn btn-block btn-danger'><span class="glyphicon glyphicon-remove"></span> Cancel</button></form>        
+
+  </div> <!-- <div class="panel-body"> -->
+
+  </div> <!-- <div class="panel-default"> -->
+
+  </div> <!-- <div class="col-md-6"> -->
+
+  </div> <!-- <div class="row"> -->
+  </div> <!-- <div class="container"> -->
+
+<!-- //////////////// JAVASCRIPT -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.2.js"><\/script>')</script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+<script src="../js/vendor/plugins.js"></script>
+  
+</body>
+</html>

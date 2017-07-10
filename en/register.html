@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Register | The Fork</title>
+
+  <!-- //////////////// CSS -->
+
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/bootstrap-united.css" rel="stylesheet">
+
+  <script src="../js/ristoranti.json"></script>
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
+
+   <script type="text/javascript">
+
+///////////////////////// INIZIALIZZAZIONE LOCAL STORAGE
+
+function inizializzaStorageUtenti(){
+  if (typeof(localStorage.utenti) == "undefined") {
+    localStorage.utenti="[]";
+  }
+}
+
+///////////////////////// STAMPA NAVBAR
+
+function stampaNavbar(){
+
+  var s = new String("");
+
+  if (typeof(localStorage.utenti) == "undefined") {
+
+    s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='login.html'><small> <span class='glyphicon glyphicon-user'></span> Account</small></a>";
+
+  } else {
+
+    // caricamento dati dal localStorage
+    var vutenti = JSON.parse(localStorage.getItem("utenti"));
+
+    var controllo = 0;
+
+    for(i=0;i<vutenti.length;i++) {
+      if(vutenti[i].l==1) {
+        s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='login.html'><small> <span class='glyphicon glyphicon-user'></span> "+vutenti[i].nc+"</small></a>";
+        controllo = 1;
+      }
+    }
+
+    if(controllo==0)
+      s+="<a class='navbar-brand' href='index.html'> <span class='glyphicon glyphicon-cutlery'></span> The Fork</a><a class='navbar-brand' href='login.html'><small> <span class='glyphicon glyphicon-user'></span> Account</small></a>";
+
+  }
+
+  document.getElementById("navbarstampa").innerHTML = s;
+
+}
+
+///////////////////////// CONTROLLA LOGIN
+
+function checkLogin(){
+
+  // caricamento dati dal localStorage
+  var vutenti = JSON.parse(localStorage.utenti);
+
+  for (i=0;i<vutenti.length;i++)
+    if (vutenti[i].l==1)
+      window.location.href = "account.html";
+
+}
+
+///////////////////////// SE UGUALI
+
+function uguali(vutenti,datiform){
+  if (vutenti.nc==datiform.nc)
+    return true;
+  return false;
+}
+
+///////////////////////// REGISTRAZIONE UTENTE
+
+function registrazioneUtente() {
+
+  // caricamento dati dal localStorage
+  var vutenti = JSON.parse(localStorage.utenti);
+
+  // dati form
+  var datiform = {
+    l:1, // quando si registra e' automaticamente loggato
+    nc:document.registrazione.nomecognome.value,
+    p:document.registrazione.password.value,
+    prenotazione: []
+  };
+
+  // controllo se l'utente e' gia' inserito
+  for (i=0;i<vutenti.length;i++) {
+    if(uguali(vutenti[i],datiform)) {
+      alert("ERROR Someone already has this name and surname. Try again!");
+      return false;
+    }
+  }
+
+  // metto i dati nell'ultima posizione
+  vutenti[vutenti.length] = datiform;
+
+  // salvo i dati nel localStorage
+  localStorage.utenti = JSON.stringify(vutenti);
+
+  window.location.href = "account.html";
+
+  return true;
+
+}
+
+</script>
+
+</head>
+<body onload="inizializzaStorageUtenti(); checkLogin(); stampaNavbar()">
+
+  <!-- //////////////// NAVBAR -->
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+  <div class="container-fluid">
+
+  <div class="navbar-header">
+    <div id="navbarstampa"></div>
+  </div>
+
+  </div> <!-- <div class="container-fluid"> -->
+  </div> <!-- <div class="container"> -->
+  </nav> <!-- <nav class="navbar navbar-inverse navbar-fixed-top"> -->
+
+<!-- //////////////// CONTENT -->
+
+<div class="container">
+<div class="row">
+
+<!-- //////////////// REGISTRAZIONE UTENTE -->
+
+<div class="col-md-5">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <h2>Register</h2>
+    </div>
+
+    <div class="panel-body">
+
+      <form action="" method="post" name="registrazione" onSubmit="return registrazioneUtente();">
+
+      <div class="form-group">
+        <label>Name and surname*</label>
+        <input class="form-control" type="text" name="nomecognome" minlength="2" maxlength="30" placeholder="Your name and surname" required>
+      </div>
+
+      <div class="form-group">
+        <label>Password*</label>
+        <input class="form-control" type="password" name="password" minlength="8" maxlength="24" placeholder="A strong e safe password" required="">
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+        <div class="col-md-8">
+          <button type="submit" class="btn btn-block btn-success">REGISTER <span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-plus"></span></button><br/>
+        </div>
+        <div class="col-md-4">
+          <button type="reset" class="btn btn-block btn-default">Clean <span class="glyphicon glyphicon-refresh"></span></button>
+        </div>
+        </div>
+      </div>
+
+      </form>
+
+      <small>*obligatory</small>
+
+    </div> <!-- <div class="panel-body"> -->
+
+  </div> <!-- <div class="panel panel-default"> -->
+
+  <p><a href="entra.html">Already have an account? Login!</a></p>
+
+</div> <!-- <div class="col-md-5"> -->
+
+</div> <!-- <div class="row"> -->
+</div> <!-- <div class="container"> -->
+
+<!-- //////////////// JAVASCRIPT -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.2.js"><\/script>')</script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+<script src="../js/vendor/plugins.js"></script>
+
+</body>
+</html>
